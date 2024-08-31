@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { AppState } from 'react-native';
 import 'react-native-url-polyfill/auto';
+import { Database } from '../../database.types';
 import { storage } from './mmkv';
 
 const supabaseUrl = 'https://xhobwrkhkzgvphzyqtem.supabase.co';
@@ -19,7 +20,7 @@ const MMKVAdapter = {
   },
 };
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: MMKVAdapter,
     autoRefreshToken: true,

@@ -1,4 +1,4 @@
-import { text } from '@/constants/Colors';
+import { white } from '@/constants/Colors';
 import { Nikeflix, PatrickHandSC } from '@/constants/Fonts';
 import { Text as RNText, type TextProps } from 'react-native';
 
@@ -9,7 +9,7 @@ export function Text(props: TextProps) {
       style={[
         {
           fontFamily: PatrickHandSC,
-          color: text,
+          color: white,
           fontSize: 20,
         },
         props.style,
@@ -23,13 +23,13 @@ export function Heading(props: TextProps) {
     <RNText
       {...props}
       style={[
-        props.style,
         {
           fontFamily: Nikeflix,
-          color: text,
+          color: white,
           fontSize: 28,
           lineHeight: 28,
         },
+        props.style,
       ]}
     />
   );

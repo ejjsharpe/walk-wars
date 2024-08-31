@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ViewStyle } from 'react-native';
-import Svg, { G, Path, SvgProps } from 'react-native-svg';
+import Svg, { G, Path } from 'react-native-svg';
 
 interface RunnnigManSvgProps {
   width?: number;

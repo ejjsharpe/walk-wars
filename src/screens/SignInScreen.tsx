@@ -1,22 +1,24 @@
 import { useSignIn } from '@/api/auth/useSignIn';
 import { useSignUp } from '@/api/auth/useSignUp';
 import { RunnnigManSvg } from '@/components/svg/RunningManSvg';
-import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Spacer } from '@/components/ui/Spacer';
 import { Text } from '@/components/ui/Text';
+import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
+import { SignInWithAppleButton } from '@/components/ui/buttons/SignInWithAppleButton';
+import { SignInWithGoogleButton } from '@/components/ui/buttons/SignInWithGoogleButton';
 import * as Colors from '@/constants/Colors';
 import { Nikeflix } from '@/constants/Fonts';
-import { supabase } from '@/lib/supabase';
-import { useTheme } from '@react-navigation/native';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function SignInScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { signInWithGoogle, signInWithEmail } = useSignIn();
   const { signUpWithEmail } = useSignUp();
+  const { bottom } = useSafeAreaInsets();
 
   return (
     <View style={[styles.container]}>
@@ -28,8 +30,8 @@ export default function SignInScreen() {
         <RunnnigManSvg />
         <Text style={[styles.headerText, styles.wars]}>WARS</Text>
       </View>
-      <Spacer height={56} />
-      <View style={styles.contentContainer}>
+      <Spacer height={24} />
+      <View style={[styles.contentContainer, { marginBottom: bottom }]}>
         <Input placeholder="email" value={email} onChangeText={setEmail} />
         <Spacer height={12} />
         <Input
@@ -38,17 +40,19 @@ export default function SignInScreen() {
           onChangeText={setPassword}
         />
         <Spacer height={12} />
-        <Button onPress={() => signInWithEmail({ email, password })}>
+        <PrimaryButton onPress={() => signInWithEmail({ email, password })}>
           sign in with email
-        </Button>
+        </PrimaryButton>
         <Spacer height={12} />
-        <Button onPress={() => signUpWithEmail({ email, password })}>
+        <PrimaryButton onPress={() => signUpWithEmail({ email, password })}>
           sign up
-        </Button>
+        </PrimaryButton>
         <Spacer height={24} />
         <Text style={{ fontSize: 24 }}>or</Text>
         <Spacer height={24} />
-        <Button onPress={signInWithGoogle}>sign in with google</Button>
+        <SignInWithGoogleButton onPress={signInWithGoogle} />
+        <Spacer height={12} />
+        <SignInWithAppleButton onPress={() => {}} />
       </View>
     </View>
   );
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
   },
   headerTop: {
     height: 200,
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.pumpkinOrange,
     alignItems: 'flex-end',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -89,5 +93,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 20,
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });

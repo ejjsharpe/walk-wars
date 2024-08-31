@@ -1,24 +1,25 @@
 import { Theme, DefaultTheme as _DefaultTheme } from '@react-navigation/native';
 
-export const primary = '#38B3F8';
-export const secondary = '#F87D38';
-export const background = '#213140';
-export const card = '#283746';
-export const text = '#FFFFFF';
-export const selected = '#005484';
-export const selectedBorder = '#00A3FF';
-export const unselected = 'transparent';
-export const unselectedBorder = '#646F79';
+export const pictonBlue = '#38B3F8';
+export const pumpkinOrange = '#F87D38';
+export const pumpkinOrangeDark = '#B95720';
+export const squidInkNavy = '#213140';
+export const squidInkLight = '#283746';
+export const white = '#FFFFFF';
+export const electricBlue = '#005484';
+export const celestialBlue = '#00A3FF';
+export const transparent = 'transparent';
+export const paynesGrey = '#525E6A';
 
 export const DefaultTheme: Theme = {
   ..._DefaultTheme,
   dark: true,
   colors: {
-    primary,
-    background,
-    card,
-    text,
-    border: unselectedBorder,
-    notification: secondary,
+    primary: pictonBlue,
+    background: squidInkNavy,
+    card: squidInkLight,
+    text: white,
+    border: paynesGrey,
+    notification: pumpkinOrange,
   },
 };

@@ -1,18 +1,14 @@
 import * as Colors from '@/constants/Colors';
 import * as Fonts from '@/constants/Fonts';
 import { StyleSheet, TextInput, TextInputProps } from 'react-native';
-export const Input = ({
-  value,
-  onChangeText,
-  placeholder = 'username',
-}: TextInputProps) => {
+export const Input = ({ value, onChangeText, placeholder }: TextInputProps) => {
   return (
     <TextInput
       value={value}
       onChangeText={onChangeText}
       style={styles.input}
       placeholder={placeholder}
-      placeholderTextColor={Colors.placeholderText}
+      placeholderTextColor={Colors.paynesGrey}
     />
   );
 };
@@ -20,7 +16,7 @@ export const Input = ({
 const styles = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
-    borderColor: Colors.primary,
+    borderColor: Colors.pictonBlue,
     borderWidth: 2,
     borderRadius: 8,
     height: 54,

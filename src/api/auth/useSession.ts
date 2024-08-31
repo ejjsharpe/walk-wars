@@ -1,13 +1,16 @@
 import { supabase } from '@/lib/supabase';
-import { useQuery } from '@tanstack/react-query';
+import type { Session } from '@supabase/supabase-js';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
-const getSession = async () => {
+const getSession = async (): Promise<Session | null> => {
   const { data } = await supabase.auth.getSession();
 
-  return data.session || null;
+  return data.session;
 };
 
 export const useSession = () => {
+  const queryClient = useQueryClient();
   const { data, isPending } = useQuery({
     queryKey: ['session'],
     queryFn: getSession,
@@ -15,5 +18,19 @@ export const useSession = () => {
     staleTime: Infinity,
   });
 
-  return { isAuthenticated: !!data, isAuthLoading: isPending };
+  useEffect(() => {
+    // TODO: test whether this signs the user out when session is gone
+    if (!isPending) {
+      const { data } = supabase.auth.onAuthStateChange(
+        async (event, session) => {
+          queryClient.setQueryData(['session'], session ? session : null);
+        }
+      );
+      return () => {
+        data.subscription.unsubscribe();
+      };
+    }
+  }, [isPending, queryClient]);
+
+  return { session: data, isAuthenticated: !!data, isAuthLoading: isPending };
 };
