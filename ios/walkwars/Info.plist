@@ -33,6 +33,12 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>exp+walk-wars</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
           <string>com.googleusercontent.apps.676537199244-t6qn94qnmntib9a875gh7ind23j826hh</string>
         </array>
       </dict>

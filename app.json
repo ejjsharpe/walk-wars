@@ -39,6 +39,17 @@
         {
           "iosUrlScheme": "com.googleusercontent.apps.676537199244-t6qn94qnmntib9a875gh7ind23j826hh"
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": true
+          },
+          "android": {
+            "newArchEnabled": true
+          }
+        }
       ]
     ]
   }

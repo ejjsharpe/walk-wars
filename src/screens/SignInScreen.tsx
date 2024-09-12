@@ -1,6 +1,6 @@
 import { useSignIn } from '@/api/auth/useSignIn';
 import { useSignUp } from '@/api/auth/useSignUp';
-import { RunnnigManSvg } from '@/components/svg/RunningManSvg';
+import { RunningManSvg } from '@/components/svg/RunningManSvg';
 import { Input } from '@/components/ui/Input';
 import { Spacer } from '@/components/ui/Spacer';
 import { Text } from '@/components/ui/Text';
@@ -24,10 +24,10 @@ export default function SignInScreen() {
     <View style={[styles.container]}>
       <View style={styles.headerTop}>
         <Text style={[styles.headerText, styles.walk]}>WALK</Text>
-        <RunnnigManSvg style={styles.mirror} />
+        <RunningManSvg style={styles.mirror} />
       </View>
       <View style={styles.headerBottom}>
-        <RunnnigManSvg />
+        <RunningManSvg />
         <Text style={[styles.headerText, styles.wars]}>WARS</Text>
       </View>
       <Spacer height={24} />
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 72,
     fontFamily: Nikeflix,
+    lineHeight: 72,
   },
   mirror: {
     transform: [{ scaleX: -1 }],

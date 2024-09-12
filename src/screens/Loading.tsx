@@ -34,9 +34,11 @@ export const Loading = () => {
       return;
     }
 
-    reset({
-      routes: [{ name: 'Main Tabs' }],
-    });
+    if (race) {
+      reset({
+        routes: [{ name: 'Main Tabs', params: { raceId: race.id } }],
+      });
+    }
   }, [
     isUserPending,
     isUserRaceDetailsPending,

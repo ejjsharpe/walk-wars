@@ -2,7 +2,6 @@ import * as Colors from '@/constants/Colors';
 import { useState } from 'react';
 import { Pressable, PressableProps, StyleSheet } from 'react-native';
 import Animated, {
-  interpolate,
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
@@ -23,7 +22,6 @@ export function Button({
   backgroundColor,
   pressedBackgroundColor,
   disabled,
-  ...props
 }: ButtonProps) {
   const sv = useSharedValue(1);
 
@@ -47,7 +45,7 @@ export function Button({
     sv.value = withSpring(0.98, {
       damping: 1,
       stiffness: 200,
-      mass: 0.2,
+      mass: 0.4,
     });
   };
 
@@ -65,7 +63,6 @@ export function Button({
       onPressIn={onPressIn}
       onPressOut={onPressOut}
       onPress={onPress}
-      {...props}
     >
       {children}
     </AnimatedPressable>

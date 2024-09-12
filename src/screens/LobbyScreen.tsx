@@ -1,5 +1,5 @@
 import { useLobbyPlayersSuspense } from '@/api/race/useLobbyPlayers';
-import { useRace, useRaceSuspense } from '@/api/race/useRace';
+import { useLoadedRace, useRace } from '@/api/race/useRace';
 import { useStartRace } from '@/api/race/useStartRace';
 import { useLoadedUser } from '@/api/user/useUser';
 import { PlayerLobbyCard } from '@/components/PlayerLobbyCard';
@@ -23,18 +23,19 @@ export const LobbyScreen = () => {
   const { user } = useLoadedUser();
   const { lobbyPlayers } = useLobbyPlayersSuspense({ raceId: params.raceId });
   const isHost = params.hostId === user.id;
-  const { race } = useRace({
+  const { race } = useLoadedRace({
     raceId: params.raceId,
     refetchInterval: isHost ? undefined : 5000,
   });
+
   const { reset } = useNavigation();
   const { startRace } = useStartRace();
 
   useEffect(() => {
-    if (!!race?.started_at) {
-      reset({ routes: [{ name: 'Main Tabs' }] });
+    if (!!race.started_at) {
+      reset({ routes: [{ name: 'Main Tabs', params: { raceId: race.id } }] });
     }
-  }, [race?.started_at, reset]);
+  }, [race.id, race.started_at, reset]);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -73,9 +74,7 @@ export const LobbyScreen = () => {
       <View style={[styles.screenWidth, { alignItems: 'center' }]}>
         <Suspense fallback={<Text>Loading...</Text>}>
           {isHost ? (
-            <PrimaryButton
-              onPress={() => startRace({ raceId: race?.id as number })}
-            >
+            <PrimaryButton onPress={() => startRace({ raceId: race.id })}>
               Create Race
             </PrimaryButton>
           ) : (

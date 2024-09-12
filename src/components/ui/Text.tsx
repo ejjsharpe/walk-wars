@@ -11,6 +11,7 @@ export function Text(props: TextProps) {
           fontFamily: PatrickHandSC,
           color: white,
           fontSize: 20,
+          lineHeight: 20,
         },
         props.style,
       ]}
