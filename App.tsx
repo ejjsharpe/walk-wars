@@ -37,9 +37,9 @@ export interface RootStackParamList {
   'Create Race': undefined;
   Invitations: undefined;
   Lobby: {
-    raceId: Race['id'];
-    raceName: Race['name'];
-    hostId: Race['host_id'];
+    raceId: string;
+    raceName: string;
+    hostId: string;
   };
 }
 export type RootStackParams = RootStackParamList & { [key: string]: undefined };

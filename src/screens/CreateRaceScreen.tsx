@@ -8,12 +8,19 @@ import { Spacer } from '@/components/ui/Spacer';
 import { Heading } from '@/components/ui/Text';
 import { queryClient } from '@/lib/reactQuery';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { RootStackParams } from '../../App';
+
+type CreateRaceScreenNavigationProps = NativeStackNavigationProp<
+  RootStackParams,
+  'Create Race'
+>;
 
 export const CreateRaceScreen = () => {
   const [raceName, setRaceName] = useState('');
@@ -24,7 +31,7 @@ export const CreateRaceScreen = () => {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const { createRace } = useCreateRace();
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<CreateRaceScreenNavigationProps>();
 
   const onPressContinue = () => {
     createRace(
@@ -32,7 +39,11 @@ export const CreateRaceScreen = () => {
       {
         onSuccess: (race) => {
           queryClient.setQueryData(['race'], race);
-          navigate('Lobby', { race });
+          navigate('Lobby', {
+            raceId: race.id,
+            raceName: race.name,
+            hostId: race.host_id,
+          });
         },
       }
     );

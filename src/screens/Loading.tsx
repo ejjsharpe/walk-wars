@@ -1,4 +1,3 @@
-import { useDistanceDataAuth } from '@/api/health/useDistanceDataAuth';
 import { useRace } from '@/api/race/useRace';
 import { useUserRaceDetails } from '@/api/race/useUserRaceDetails';
 import { useUser } from '@/api/user/useUser';
@@ -10,16 +9,11 @@ import { View } from 'react-native';
 export const Loading = () => {
   const { user, isUserPending } = useUser();
   const { userRaceDetails, isUserRaceDetailsPending } = useUserRaceDetails();
+
   const { race } = useRace({ raceId: userRaceDetails?.race_id });
   const { reset } = useNavigation();
-  const { authorizationStatus, requestAuthorization } = useDistanceDataAuth();
 
   useEffect(() => {
-    if (!authorizationStatus) {
-      requestAuthorization();
-      return;
-    }
-
     if (isUserPending || isUserRaceDetailsPending) return;
 
     if (!user?.avatar || !user?.display_name) {
@@ -35,7 +29,14 @@ export const Loading = () => {
     if (race && !race.started_at) {
       reset({
         routes: [
-          { name: 'Lobby', params: { raceId: race.id, raceName: race.name } },
+          {
+            name: 'Lobby',
+            params: {
+              raceId: race.id,
+              raceName: race.name,
+              hostId: race.host_id,
+            },
+          },
         ],
       });
       return;
@@ -47,11 +48,9 @@ export const Loading = () => {
       });
     }
   }, [
-    authorizationStatus,
     isUserPending,
     isUserRaceDetailsPending,
     race,
-    requestAuthorization,
     reset,
     user?.avatar,
     user?.display_name,

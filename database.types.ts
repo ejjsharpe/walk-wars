@@ -24,7 +24,7 @@ export type Database = {
           caster_id: string
           created_at: string
           end_timestamp: string
-          id: string
+          id?: string
           power_id: string
           race_id: string
           start_timestamp: string
@@ -84,7 +84,7 @@ export type Database = {
         Insert: {
           created_at?: string
           end_timestamp: string
-          id: string
+          id?: string
           race_id: string
           start_timestamp: string
           step_count: number
@@ -126,7 +126,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          id: string
+          id?: string
           race_id: string
           recipient_id: string
           sender_id: string
@@ -177,7 +177,7 @@ export type Database = {
           description: string
           duration_hours?: number | null
           effect: string
-          id: string
+          id?: string
           key: string
           name: string
         }
@@ -210,7 +210,7 @@ export type Database = {
           end_condition?: Database["public"]["Enums"]["end_condition"]
           ended_at?: string | null
           host_id: string
-          id: string
+          id?: string
           name: string
           started_at?: string | null
           updated_at?: string | null
@@ -284,7 +284,7 @@ export type Database = {
         Insert: {
           distance_travelled?: number
           finish_position?: number | null
-          id: string
+          id?: string
           joined_race_at?: string
           race_id: string
           updated_at?: string
