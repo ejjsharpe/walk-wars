@@ -50,6 +50,14 @@
             "newArchEnabled": true
           }
         }
+      ],
+      [
+        "@kingstinct/react-native-healthkit",
+        {
+          "NSHealthShareUsageDescription": "Walk Wars needs access to your health data in order to monitor your step count in our races",
+          "NSHealthUpdateUsageDescription": false,
+          "background": true
+        }
       ]
     ]
   }

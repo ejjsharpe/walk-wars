@@ -1,5 +1,7 @@
 import { useSession } from '@/api/auth/useSession';
 import type { Race } from '@/api/race/types';
+import { LeaderboardIconSvg } from '@/components/svg/LeaderboardIconSvg';
+import { ProfileIconSvg } from '@/components/svg/ProfileIconSvg';
 import { RunnerManSvg } from '@/components/svg/RunnerIconSvg';
 import * as Colors from '@/constants/Colors';
 import { DefaultTheme } from '@/constants/Colors';
@@ -12,6 +14,7 @@ import { NoRaceScreen } from '@/screens/NoRaceScreen';
 import { ProfileScreen } from '@/screens/ProfileScreen';
 import SignInScreen from '@/screens/SignInScreen';
 import { HomeScreen } from '@/screens/tabs/HomeScreen';
+import { LeaderboardScreen } from '@/screens/tabs/LeaderboardScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   NavigationContainer,
@@ -19,6 +22,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import 'expo-dev-client';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
@@ -42,7 +46,10 @@ export type RootStackParams = RootStackParamList & { [key: string]: undefined };
 
 interface MainTabsParamsList {
   Home: { raceId: number };
+  Leaderboard: undefined;
+  Profile: { isTab: boolean };
 }
+
 export type MainTabsParams = MainTabsParamsList & { [key: string]: undefined };
 
 declare global {
@@ -69,6 +76,7 @@ function MainTabs() {
         headerShown: false,
         tabBarStyle: { paddingTop: 8, paddingBottom: 8 },
         tabBarShowLabel: false,
+        animation: 'fade',
       }}
     >
       <Tab.Screen
@@ -78,9 +86,32 @@ function MainTabs() {
         options={{
           tabBarIcon: ({ focused }) => (
             <RunnerManSvg
-              color={focused ? Colors.pictonBlue : Colors.squidInkLight}
+              color={focused ? Colors.pictonBlue : Colors.paynesGrey}
               width={36}
               height={36}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Leaderboard"
+        component={LeaderboardScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <LeaderboardIconSvg
+              color={focused ? Colors.pictonBlue : Colors.paynesGrey}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        initialParams={{ isTab: true }}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <ProfileIconSvg
+              color={focused ? Colors.pictonBlue : Colors.paynesGrey}
             />
           ),
         }}

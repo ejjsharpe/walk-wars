@@ -4,7 +4,7 @@ import { HomeScreenHeader } from '@/components/HomeScreenHeader';
 import { CloudSyncIconSvg } from '@/components/svg/CloudSyncIconSvg';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { Spacer } from '@/components/ui/Spacer';
-import { Heading, Text } from '@/components/ui/Text';
+import { Heading } from '@/components/ui/Text';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -21,6 +21,9 @@ export const HomeScreen = () => {
         <Dashboard />
         <Spacer height={20} />
         <PrimaryButton Icon={<CloudSyncIconSvg />}>Sync Progress</PrimaryButton>
+        <Spacer height={32} />
+        <Heading>Activity</Heading>
+        <Spacer height={20} />
       </ScrollView>
     </View>
   );

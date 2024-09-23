@@ -1,3 +1,4 @@
+import { useDistanceDataAuth } from '@/api/health/useDistanceDataAuth';
 import { useRace } from '@/api/race/useRace';
 import { useUserRaceDetails } from '@/api/race/useUserRaceDetails';
 import { useUser } from '@/api/user/useUser';
@@ -11,8 +12,14 @@ export const Loading = () => {
   const { userRaceDetails, isUserRaceDetailsPending } = useUserRaceDetails();
   const { race } = useRace({ raceId: userRaceDetails?.race_id });
   const { reset } = useNavigation();
+  const { authorizationStatus, requestAuthorization } = useDistanceDataAuth();
 
   useEffect(() => {
+    if (!authorizationStatus) {
+      requestAuthorization();
+      return;
+    }
+
     if (isUserPending || isUserRaceDetailsPending) return;
 
     if (!user?.avatar || !user?.display_name) {
@@ -40,9 +47,11 @@ export const Loading = () => {
       });
     }
   }, [
+    authorizationStatus,
     isUserPending,
     isUserRaceDetailsPending,
     race,
+    requestAuthorization,
     reset,
     user?.avatar,
     user?.display_name,

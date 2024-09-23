@@ -12,13 +12,11 @@ const fetchLobbyPlayers = async ({ raceId }: { raceId: number }) => {
 };
 
 export const useLobbyPlayersSuspense = ({ raceId }: { raceId: number }) => {
-  const { data: lobbyPlayers, error } = useSuspenseQuery({
+  const { data: lobbyPlayers } = useSuspenseQuery({
     queryKey: ['lobby_players', raceId],
     queryFn: () => fetchLobbyPlayers({ raceId }),
     refetchInterval: 5000,
   });
-
-  console.log({ error });
 
   return { lobbyPlayers };
 };
