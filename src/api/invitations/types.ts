@@ -1,6 +1,6 @@
 export type Invitation = {
-  id: number;
+  id: string;
   created_at: string;
   sender: { id: string; display_name: string | null };
-  race: { id: number; name: string };
+  race: { id: string; name: string };
 };

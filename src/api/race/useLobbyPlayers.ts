@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-const fetchLobbyPlayers = async ({ raceId }: { raceId: number }) => {
+const fetchLobbyPlayers = async ({ raceId }: { raceId: string }) => {
   const { data, error } = await supabase.rpc('get_lobby_players', {
     raceid: raceId,
   });
@@ -11,7 +11,7 @@ const fetchLobbyPlayers = async ({ raceId }: { raceId: number }) => {
   return data;
 };
 
-export const useLobbyPlayersSuspense = ({ raceId }: { raceId: number }) => {
+export const useLobbyPlayersSuspense = ({ raceId }: { raceId: string }) => {
   const { data: lobbyPlayers } = useSuspenseQuery({
     queryKey: ['lobby_players', raceId],
     queryFn: () => fetchLobbyPlayers({ raceId }),

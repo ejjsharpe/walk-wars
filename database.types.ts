@@ -13,53 +13,53 @@ export type Database = {
         Row: {
           caster_id: string
           created_at: string
-          end_time: string
-          id: number
-          power_id: number
-          race_id: number
-          start_time: string
+          end_timestamp: string
+          id: string
+          power_id: string
+          race_id: string
+          start_timestamp: string
           target_id: string | null
         }
         Insert: {
           caster_id: string
           created_at: string
-          end_time: string
-          id?: number
-          power_id: number
-          race_id: number
-          start_time: string
+          end_timestamp: string
+          id: string
+          power_id: string
+          race_id: string
+          start_timestamp: string
           target_id?: string | null
         }
         Update: {
           caster_id?: string
           created_at?: string
-          end_time?: string
-          id?: number
-          power_id?: number
-          race_id?: number
-          start_time?: string
+          end_timestamp?: string
+          id?: string
+          power_id?: string
+          race_id?: string
+          start_timestamp?: string
           target_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "user_powers_caster_id_fkey"
-            columns: ["caster_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_powers_power_id_fkey"
+            foreignKeyName: "applied_powers_power_id_fkey"
             columns: ["power_id"]
             isOneToOne: false
             referencedRelation: "powers"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_powers_race_id_fkey"
+            foreignKeyName: "applied_powers_race_id_fkey"
             columns: ["race_id"]
             isOneToOne: false
             referencedRelation: "races"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_powers_caster_id_fkey"
+            columns: ["caster_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
@@ -74,29 +74,29 @@ export type Database = {
       distance_logs: {
         Row: {
           created_at: string
-          distance: number
-          id: number
-          partial: boolean
-          race_id: number
-          timestamp: string
+          end_timestamp: string
+          id: string
+          race_id: string
+          start_timestamp: string
+          step_count: number
           user_id: string
         }
         Insert: {
           created_at?: string
-          distance: number
-          id?: number
-          partial?: boolean
-          race_id: number
-          timestamp: string
+          end_timestamp: string
+          id: string
+          race_id: string
+          start_timestamp: string
+          step_count: number
           user_id: string
         }
         Update: {
           created_at?: string
-          distance?: number
-          id?: number
-          partial?: boolean
-          race_id?: number
-          timestamp?: string
+          end_timestamp?: string
+          id?: string
+          race_id?: string
+          start_timestamp?: string
+          step_count?: number
           user_id?: string
         }
         Relationships: [
@@ -119,22 +119,22 @@ export type Database = {
       invitations: {
         Row: {
           created_at: string
-          id: number
-          race_id: number
+          id: string
+          race_id: string
           recipient_id: string
           sender_id: string
         }
         Insert: {
           created_at?: string
-          id?: number
-          race_id: number
+          id: string
+          race_id: string
           recipient_id: string
           sender_id: string
         }
         Update: {
           created_at?: string
-          id?: number
-          race_id?: number
+          id?: string
+          race_id?: string
           recipient_id?: string
           sender_id?: string
         }
@@ -168,7 +168,7 @@ export type Database = {
           description: string
           duration_hours: number | null
           effect: string
-          id: number
+          id: string
           key: string
           name: string
         }
@@ -177,7 +177,7 @@ export type Database = {
           description: string
           duration_hours?: number | null
           effect: string
-          id?: number
+          id: string
           key: string
           name: string
         }
@@ -186,7 +186,7 @@ export type Database = {
           description?: string
           duration_hours?: number | null
           effect?: string
-          id?: number
+          id?: string
           key?: string
           name?: string
         }
@@ -199,7 +199,7 @@ export type Database = {
           end_condition: Database["public"]["Enums"]["end_condition"]
           ended_at: string | null
           host_id: string
-          id: number
+          id: string
           name: string
           started_at: string | null
           updated_at: string | null
@@ -210,7 +210,7 @@ export type Database = {
           end_condition?: Database["public"]["Enums"]["end_condition"]
           ended_at?: string | null
           host_id: string
-          id?: number
+          id: string
           name: string
           started_at?: string | null
           updated_at?: string | null
@@ -221,7 +221,7 @@ export type Database = {
           end_condition?: Database["public"]["Enums"]["end_condition"]
           ended_at?: string | null
           host_id?: string
-          id?: number
+          id?: string
           name?: string
           started_at?: string | null
           updated_at?: string | null
@@ -275,24 +275,27 @@ export type Database = {
         Row: {
           distance_travelled: number
           finish_position: number | null
+          id: string
           joined_race_at: string
-          race_id: number
+          race_id: string
           updated_at: string
           user_id: string
         }
         Insert: {
           distance_travelled?: number
           finish_position?: number | null
+          id: string
           joined_race_at?: string
-          race_id?: number
+          race_id: string
           updated_at?: string
           user_id: string
         }
         Update: {
           distance_travelled?: number
           finish_position?: number | null
+          id?: string
           joined_race_at?: string
-          race_id?: number
+          race_id?: string
           updated_at?: string
           user_id?: string
         }
@@ -318,19 +321,35 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      accept_invitation: {
-        Args: {
-          invitation_id: number
-        }
-        Returns: {
-          distance_travelled: number
-          finish_position: number | null
-          joined_race_at: string
-          race_id: number
-          updated_at: string
-          user_id: string
-        }
-      }
+      accept_invitation:
+        | {
+            Args: {
+              invitation_id: number
+            }
+            Returns: {
+              distance_travelled: number
+              finish_position: number | null
+              id: string
+              joined_race_at: string
+              race_id: string
+              updated_at: string
+              user_id: string
+            }
+          }
+        | {
+            Args: {
+              invitation_id: string
+            }
+            Returns: {
+              distance_travelled: number
+              finish_position: number | null
+              id: string
+              joined_race_at: string
+              race_id: string
+              updated_at: string
+              user_id: string
+            }
+          }
       create_race: {
         Args: {
           user_id: string
@@ -344,7 +363,7 @@ export type Database = {
           end_condition: Database["public"]["Enums"]["end_condition"]
           ended_at: string | null
           host_id: string
-          id: number
+          id: string
           name: string
           started_at: string | null
           updated_at: string | null
@@ -355,7 +374,7 @@ export type Database = {
           user_id: string
         }
         Returns: {
-          id: number
+          id: string
           sender: Json
           recipient_id: string
           race: Json
@@ -364,7 +383,7 @@ export type Database = {
       }
       get_lobby_players: {
         Args: {
-          raceid: number
+          raceid: string
         }
         Returns: {
           user_id: string

@@ -1,5 +1,4 @@
 import { useCreateRace } from '@/api/race/useCreateRace';
-import { StarSvg } from '@/components/svg/StarSvg';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { SelectableButton } from '@/components/ui/buttons/SelectableButton';
 import { SquareStarButton } from '@/components/ui/buttons/SquareStarButton';

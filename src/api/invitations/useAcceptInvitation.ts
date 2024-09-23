@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { useMutation } from '@tanstack/react-query';
 
-const acceptInvitation = async ({ invitationId }: { invitationId: number }) => {
+const acceptInvitation = async ({ invitationId }: { invitationId: string }) => {
   const { data, error } = await supabase.rpc('accept_invitation', {
     invitation_id: invitationId,
   });

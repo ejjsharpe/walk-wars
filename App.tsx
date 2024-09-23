@@ -30,7 +30,7 @@ SplashScreen.preventAutoHideAsync();
 
 export interface RootStackParamList {
   Loading: undefined;
-  'Main Tabs': { raceId: number };
+  'Main Tabs': { raceId: string };
   'Sign In': undefined;
   Profile: undefined;
   'No Race': undefined;
@@ -45,7 +45,7 @@ export interface RootStackParamList {
 export type RootStackParams = RootStackParamList & { [key: string]: undefined };
 
 interface MainTabsParamsList {
-  Home: { raceId: number };
+  Home: { raceId: string };
   Leaderboard: undefined;
   Profile: { isTab: boolean };
 }
