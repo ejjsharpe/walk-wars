@@ -4,7 +4,7 @@ import { DashboardWidgetSmall } from './DashboardWidgetSmall';
 import { RunnerManSvg } from './svg/RunnerIconSvg';
 import { TrophyIconSvg } from './svg/TrophyIconSvg';
 import CircularProgressBar from './ui/CircularProgressBar';
-import { Spacer } from './ui/Spacer';
+import { VSpace } from './ui/Spacer';
 import { Heading } from './ui/Text';
 
 export const Dashboard = () => {
@@ -23,9 +23,9 @@ export const Dashboard = () => {
             },
           ]}
         >
-          <Spacer height={16} />
+          <VSpace height={16} />
           <CircularProgressBar size={Math.round((width - 60) / 2 - 72)} />
-          <Spacer height={12} />
+          <VSpace height={12} />
           <Heading style={{ paddingBottom: 12 }}>PROGRESS</Heading>
         </View>
         <View style={{ width: 20 }}></View>
@@ -38,7 +38,7 @@ export const Dashboard = () => {
             }
             subheader={'today'}
           />
-          <Spacer height={20} />
+          <VSpace height={20} />
           <DashboardWidgetSmall
             Icon={
               <TrophyIconSvg width={48} height={48} color={Colors.pictonBlue} />

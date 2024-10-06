@@ -6,7 +6,7 @@ import { PlayerLobbyCard } from '@/components/PlayerLobbyCard';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { Input } from '@/components/ui/Input';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
-import { Spacer } from '@/components/ui/Spacer';
+import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import * as Colors from '@/constants/Colors';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
@@ -41,18 +41,18 @@ export const LobbyScreen = () => {
     <SafeAreaView style={styles.safeAreaView}>
       <ScreenHeader>{params.raceName}</ScreenHeader>
       <View style={styles.screenWidth}>
-        <Spacer height={32} />
+        <VSpace height={32} />
         <Heading style={{ marginLeft: 4 }}>INVITE</Heading>
-        <Spacer height={8} />
+        <VSpace height={8} />
         <Input
           value={userToInvite}
           onChangeText={setUserToInvite}
           placeholder="Player name"
         />
-        <Spacer height={32} />
+        <VSpace height={32} />
       </View>
       <Heading style={styles.playersHeading}>PLAYERS</Heading>
-      <Spacer height={12} />
+      <VSpace height={12} />
       <ScrollView style={styles.screenWidth}>
         <Suspense fallback={<Text>Loading...</Text>}>
           {lobbyPlayers.map(
@@ -70,7 +70,7 @@ export const LobbyScreen = () => {
           )}
         </Suspense>
       </ScrollView>
-      <Spacer height={20} />
+      <VSpace height={20} />
       <View style={[styles.screenWidth, { alignItems: 'center' }]}>
         <Suspense fallback={<Text>Loading...</Text>}>
           {isHost ? (

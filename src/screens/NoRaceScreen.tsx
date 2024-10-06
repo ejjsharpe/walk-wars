@@ -1,6 +1,6 @@
 import { useLoadedUser } from '@/api/user/useUser';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
-import { Spacer } from '@/components/ui/Spacer';
+import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import * as Colors from '@/constants/Colors';
 import { useNavigation } from '@react-navigation/native';
@@ -27,18 +27,18 @@ export const NoRaceScreen = () => {
         </Heading>
         !
       </Heading>
-      <Spacer height={40} />
+      <VSpace height={40} />
       <Text style={styles.body}>
         Find some friends to race. You can either join their race or you can
         start one of your own.{' '}
       </Text>
-      <Spacer height={20} />
+      <VSpace height={20} />
       <Text style={styles.body}>Would you like to</Text>
-      <Spacer height={36} />
+      <VSpace height={36} />
       <PrimaryButton onPress={onPressCreateRace}>CREATE RACE</PrimaryButton>
-      <Spacer height={20} />
+      <VSpace height={20} />
       <Text>or</Text>
-      <Spacer height={20} />
+      <VSpace height={20} />
       <PrimaryButton onPress={onPressViewInvitations}>
         VIEW INVITATIONS
       </PrimaryButton>

@@ -4,7 +4,7 @@ import { AvatarPlaceholderSvg } from '@/components/svg/AvatarPlaceholderSvg';
 import { ImageUploadIconSvg } from '@/components/svg/ImageUploadIconSvg';
 import { Input } from '@/components/ui/Input';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
-import { Spacer } from '@/components/ui/Spacer';
+import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import * as Colors from '@/constants/Colors';
@@ -15,10 +15,7 @@ import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { Fragment, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import type { MainTabsParams } from '../../App';
 
 const choosableColors = [
@@ -57,7 +54,7 @@ export const ProfileScreen = () => {
         base64: true,
       });
 
-      if (result.canceled) {
+      if (result.canceled || !result.assets[0]) {
         return;
       }
 
@@ -84,7 +81,7 @@ export const ProfileScreen = () => {
 
       setAvatarImageUri(result.assets[0].uri);
     } catch (err) {
-      console.log({ err });
+      // TODO: handle error
     }
   };
 
@@ -99,7 +96,6 @@ export const ProfileScreen = () => {
         navigate('No Race');
       }
     } catch (err) {
-      console.log({ err });
       // TODO: handle this error
     }
   };
@@ -107,16 +103,16 @@ export const ProfileScreen = () => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScreenHeader hideBackButton={isTab}>Profile</ScreenHeader>
-      <Spacer height={12} />
+      <VSpace height={12} />
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.contentContainer}>
-          <Spacer height={12} />
+          <VSpace height={12} />
           {!isTab && (
             <Text style={styles.subheader}>
               Looks like you&apos;re new around here. {'\n'}Lets get you set up!
             </Text>
           )}
-          <Spacer height={36} />
+          <VSpace height={36} />
           <View>
             <View
               style={[styles.avatarOuterBorder, { borderColor: selectedColor }]}
@@ -136,10 +132,10 @@ export const ProfileScreen = () => {
             </Pressable>
           </View>
         </View>
-        <Spacer height={40} />
+        <VSpace height={40} />
         <View style={{ width: '100%' }}>
           <Heading style={{ marginLeft: 24 }}>COLOUR</Heading>
-          <Spacer height={12} />
+          <VSpace height={12} />
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -172,14 +168,14 @@ export const ProfileScreen = () => {
             ))}
             <View style={{ width: 32 }}></View>
           </ScrollView>
-          <Spacer height={24} />
+          <VSpace height={24} />
           <View style={{ marginHorizontal: 20 }}>
             <Heading style={{ marginLeft: 4 }}>DISPLAY NAME</Heading>
-            <Spacer height={12} />
+            <VSpace height={12} />
             <Input onChangeText={setDisplayName} value={displayName} />
           </View>
         </View>
-        <Spacer height={40} />
+        <VSpace height={40} />
         <View style={[styles.stickyButtonContainer]}>
           <PrimaryButton
             disabled={!displayName || !user?.avatar}

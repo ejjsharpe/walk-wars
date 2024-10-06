@@ -2,7 +2,7 @@ import { useSignIn } from '@/api/auth/useSignIn';
 import { useSignUp } from '@/api/auth/useSignUp';
 import { RunningManSvg } from '@/components/svg/RunningManSvg';
 import { Input } from '@/components/ui/Input';
-import { Spacer } from '@/components/ui/Spacer';
+import { VSpace } from '@/components/ui/Spacer';
 import { Text } from '@/components/ui/Text';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { SignInWithAppleButton } from '@/components/ui/buttons/SignInWithAppleButton';
@@ -30,28 +30,28 @@ export default function SignInScreen() {
         <RunningManSvg />
         <Text style={[styles.headerText, styles.wars]}>WARS</Text>
       </View>
-      <Spacer height={24} />
+      <VSpace height={24} />
       <View style={[styles.contentContainer, { marginBottom: bottom }]}>
         <Input placeholder="email" value={email} onChangeText={setEmail} />
-        <Spacer height={12} />
+        <VSpace height={12} />
         <Input
           placeholder="password"
           value={password}
           onChangeText={setPassword}
         />
-        <Spacer height={12} />
+        <VSpace height={12} />
         <PrimaryButton onPress={() => signInWithEmail({ email, password })}>
           sign in with email
         </PrimaryButton>
-        <Spacer height={12} />
+        <VSpace height={12} />
         <PrimaryButton onPress={() => signUpWithEmail({ email, password })}>
           sign up
         </PrimaryButton>
-        <Spacer height={24} />
+        <VSpace height={24} />
         <Text style={{ fontSize: 24 }}>or</Text>
-        <Spacer height={24} />
+        <VSpace height={24} />
         <SignInWithGoogleButton onPress={signInWithGoogle} />
-        <Spacer height={12} />
+        <VSpace height={12} />
         <SignInWithAppleButton onPress={() => {}} />
       </View>
     </View>

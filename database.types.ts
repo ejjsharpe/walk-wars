@@ -71,51 +71,6 @@ export type Database = {
           },
         ]
       }
-      distance_logs: {
-        Row: {
-          created_at: string
-          end_timestamp: string
-          id: string
-          race_id: string
-          start_timestamp: string
-          step_count: number
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          end_timestamp: string
-          id?: string
-          race_id: string
-          start_timestamp: string
-          step_count: number
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          end_timestamp?: string
-          id?: string
-          race_id?: string
-          start_timestamp?: string
-          step_count?: number
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "distance_logs_race_id_fkey"
-            columns: ["race_id"]
-            isOneToOne: false
-            referencedRelation: "races"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "distance_logs_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       invitations: {
         Row: {
           created_at: string
@@ -236,6 +191,51 @@ export type Database = {
           },
         ]
       }
+      step_logs: {
+        Row: {
+          created_at: string
+          end_timestamp: string
+          id: string
+          race_id: string
+          start_timestamp: string
+          step_count: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          end_timestamp: string
+          id?: string
+          race_id: string
+          start_timestamp: string
+          step_count: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          end_timestamp?: string
+          id?: string
+          race_id?: string
+          start_timestamp?: string
+          step_count?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "distance_logs_race_id_fkey"
+            columns: ["race_id"]
+            isOneToOne: false
+            referencedRelation: "races"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "distance_logs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           avatar: string | null
@@ -273,29 +273,32 @@ export type Database = {
       }
       users_races: {
         Row: {
-          distance_travelled: number
+          adjusted_step_count: number
           finish_position: number | null
           id: string
           joined_race_at: string
           race_id: string
+          total_step_count: number
           updated_at: string
           user_id: string
         }
         Insert: {
-          distance_travelled?: number
+          adjusted_step_count?: number
           finish_position?: number | null
           id?: string
           joined_race_at?: string
           race_id: string
+          total_step_count?: number
           updated_at?: string
           user_id: string
         }
         Update: {
-          distance_travelled?: number
+          adjusted_step_count?: number
           finish_position?: number | null
           id?: string
           joined_race_at?: string
           race_id?: string
+          total_step_count?: number
           updated_at?: string
           user_id?: string
         }
@@ -327,11 +330,12 @@ export type Database = {
               invitation_id: number
             }
             Returns: {
-              distance_travelled: number
+              adjusted_step_count: number
               finish_position: number | null
               id: string
               joined_race_at: string
               race_id: string
+              total_step_count: number
               updated_at: string
               user_id: string
             }
@@ -341,15 +345,32 @@ export type Database = {
               invitation_id: string
             }
             Returns: {
-              distance_travelled: number
+              adjusted_step_count: number
               finish_position: number | null
               id: string
               joined_race_at: string
               race_id: string
+              total_step_count: number
               updated_at: string
               user_id: string
             }
           }
+      add_step_logs: {
+        Args: {
+          step_logs_array: Json
+          race_id: string
+          user_id: string
+        }
+        Returns: undefined
+      }
+      addsteplogs: {
+        Args: {
+          steplogsarray: Json
+          raceid: string
+          userid: string
+        }
+        Returns: undefined
+      }
       create_race: {
         Args: {
           user_id: string

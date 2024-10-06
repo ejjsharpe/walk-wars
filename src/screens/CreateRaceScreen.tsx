@@ -4,7 +4,7 @@ import { SelectableButton } from '@/components/ui/buttons/SelectableButton';
 import { SquareStarButton } from '@/components/ui/buttons/SquareStarButton';
 import { Input } from '@/components/ui/Input';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
-import { Spacer } from '@/components/ui/Spacer';
+import { VSpace } from '@/components/ui/Spacer';
 import { Heading } from '@/components/ui/Text';
 import { queryClient } from '@/lib/reactQuery';
 import { useNavigation } from '@react-navigation/native';
@@ -37,8 +37,8 @@ export const CreateRaceScreen = () => {
     createRace(
       { name: raceName, distance, endCondition },
       {
-        onSuccess: (race) => {
-          queryClient.setQueryData(['race'], race);
+        onSuccess: async (race) => {
+          await queryClient.setQueryData(['race'], race);
           navigate('Lobby', {
             raceId: race.id,
             raceName: race.name,
@@ -52,14 +52,14 @@ export const CreateRaceScreen = () => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScreenHeader>CREATE RACE</ScreenHeader>
-      <Spacer height={32} />
+      <VSpace height={32} />
       <View style={styles.container}>
         <Heading style={{ marginLeft: 4 }}>RACE NAME</Heading>
-        <Spacer height={12} />
+        <VSpace height={12} />
         <Input onChangeText={setRaceName} value={raceName} />
-        <Spacer height={32} />
+        <VSpace height={32} />
         <Heading style={{ marginLeft: 4 }}>DISTANCE (KM)</Heading>
-        <Spacer height={12} />
+        <VSpace height={12} />
         <View style={styles.starButtonsContainer}>
           <SquareStarButton
             size={(width - 80) / 3}
@@ -90,16 +90,16 @@ export const CreateRaceScreen = () => {
             text="500km"
           />
         </View>
-        <Spacer height={32} />
+        <VSpace height={32} />
         <Heading style={{ marginLeft: 4 }}>ENDS WHEN</Heading>
-        <Spacer height={12} />
+        <VSpace height={12} />
         <SelectableButton
           onPress={() => setEndCondition('all_finished')}
           isSelected={endCondition === 'all_finished'}
         >
           Everyone finishes
         </SelectableButton>
-        <Spacer height={12} />
+        <VSpace height={12} />
         <SelectableButton
           onPress={() => setEndCondition('winner_finished')}
           isSelected={endCondition === 'winner_finished'}

@@ -1,6 +1,5 @@
 import { StarSvg } from '@/components/svg/StarSvg';
 import * as Colors from '@/constants/Colors';
-import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Text } from '../Text';
 
@@ -52,13 +51,16 @@ export const SquareStarButton = ({
           />
         )}
         <View style={{ flexDirection: 'row' }}>
-          {[...Array(numberOfStars === 3 ? 2 : numberOfStars)].map((star) => (
-            <StarSvg
-              size={sizes[numberOfStars]}
-              strokeColor={isSelected ? Colors.white : Colors.paynesGrey}
-              fill={isSelected ? Colors.white : 'transparent'}
-            />
-          ))}
+          {[...Array(numberOfStars === 3 ? 2 : numberOfStars).keys()].map(
+            (star) => (
+              <StarSvg
+                key={star}
+                size={sizes[numberOfStars]}
+                strokeColor={isSelected ? Colors.white : Colors.paynesGrey}
+                fill={isSelected ? Colors.white : 'transparent'}
+              />
+            )
+          )}
         </View>
       </View>
       <Text

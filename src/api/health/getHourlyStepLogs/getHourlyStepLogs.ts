@@ -1,3 +1,6 @@
+import HealthKit, {
+  HKQuantityTypeIdentifier,
+} from '@kingstinct/react-native-healthkit';
 import { createStepCountLog } from '../createStepCountLog/createStepCountLog';
 
 export const getHourlyStepLogs = async ({
@@ -7,6 +10,8 @@ export const getHourlyStepLogs = async ({
   from: Date;
   to: Date;
 }) => {
+  await HealthKit.requestAuthorization([HKQuantityTypeIdentifier.stepCount]);
+
   const promises = [];
   let currentFrom = new Date(from);
 

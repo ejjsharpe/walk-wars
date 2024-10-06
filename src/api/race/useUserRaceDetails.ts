@@ -20,7 +20,7 @@ export const useUserRaceDetails = () => {
 
   const { data: userRaceDetails, isPending: isUserRaceDetailsPending } =
     useQuery({
-      queryKey: ['user_races'],
+      queryKey: ['userRaceDetails'],
       queryFn: () => fetchUsersRaceDetails({ userId: (user as User).id }),
       staleTime: Infinity,
       gcTime: Infinity,
