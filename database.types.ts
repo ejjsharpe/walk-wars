@@ -150,35 +150,35 @@ export type Database = {
       races: {
         Row: {
           created_at: string
-          distance: number | null
           end_condition: Database["public"]["Enums"]["end_condition"]
           ended_at: string | null
           host_id: string
           id: string
           name: string
           started_at: string | null
+          steps_to_finish: number | null
           updated_at: string | null
         }
         Insert: {
           created_at?: string
-          distance?: number | null
           end_condition?: Database["public"]["Enums"]["end_condition"]
           ended_at?: string | null
           host_id: string
           id?: string
           name: string
           started_at?: string | null
+          steps_to_finish?: number | null
           updated_at?: string | null
         }
         Update: {
           created_at?: string
-          distance?: number | null
           end_condition?: Database["public"]["Enums"]["end_condition"]
           ended_at?: string | null
           host_id?: string
           id?: string
           name?: string
           started_at?: string | null
+          steps_to_finish?: number | null
           updated_at?: string | null
         }
         Relationships: [
@@ -324,44 +324,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      accept_invitation:
-        | {
-            Args: {
-              invitation_id: number
-            }
-            Returns: {
-              adjusted_step_count: number
-              finish_position: number | null
-              id: string
-              joined_race_at: string
-              race_id: string
-              total_step_count: number
-              updated_at: string
-              user_id: string
-            }
-          }
-        | {
-            Args: {
-              invitation_id: string
-            }
-            Returns: {
-              adjusted_step_count: number
-              finish_position: number | null
-              id: string
-              joined_race_at: string
-              race_id: string
-              total_step_count: number
-              updated_at: string
-              user_id: string
-            }
-          }
-      add_step_logs: {
+      accept_invitation: {
         Args: {
-          step_logs_array: Json
+          invitation_id: string
+        }
+        Returns: {
+          adjusted_step_count: number
+          finish_position: number | null
+          id: string
+          joined_race_at: string
           race_id: string
+          total_step_count: number
+          updated_at: string
           user_id: string
         }
-        Returns: undefined
       }
       addsteplogs: {
         Args: {
@@ -375,18 +351,18 @@ export type Database = {
         Args: {
           user_id: string
           name: string
-          distance: number
+          steps_to_finish: number
           end_condition: Database["public"]["Enums"]["end_condition"]
         }
         Returns: {
           created_at: string
-          distance: number | null
           end_condition: Database["public"]["Enums"]["end_condition"]
           ended_at: string | null
           host_id: string
           id: string
           name: string
           started_at: string | null
+          steps_to_finish: number | null
           updated_at: string | null
         }
       }

@@ -8,41 +8,34 @@ import { VSpace } from '@/components/ui/Spacer';
 import { Heading } from '@/components/ui/Text';
 import { queryClient } from '@/lib/reactQuery';
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { RootStackParams } from '../../App';
-
-type CreateRaceScreenNavigationProps = NativeStackNavigationProp<
-  RootStackParams,
-  'Create Race'
->;
 
 export const CreateRaceScreen = () => {
   const [raceName, setRaceName] = useState('');
-  const [distance, setDistance] = useState(100000);
+  const [stepsToFinish, setStepsToFinish] = useState(100000);
   const [endCondition, setEndCondition] = useState<
     'winner_finished' | 'all_finished'
   >('all_finished');
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const { createRace } = useCreateRace();
-  const { navigate } = useNavigation<CreateRaceScreenNavigationProps>();
+  const { navigate } = useNavigation();
 
   const onPressContinue = () => {
     createRace(
-      { name: raceName, distance, endCondition },
+      { name: raceName, steps_to_finish: stepsToFinish, endCondition },
       {
         onSuccess: async (race) => {
           await queryClient.setQueryData(['race'], race);
           navigate('Lobby', {
+            hostId: race.host_id,
             raceId: race.id,
             raceName: race.name,
-            hostId: race.host_id,
           });
         },
       }
@@ -58,14 +51,14 @@ export const CreateRaceScreen = () => {
         <VSpace height={12} />
         <Input onChangeText={setRaceName} value={raceName} />
         <VSpace height={32} />
-        <Heading style={{ marginLeft: 4 }}>DISTANCE (KM)</Heading>
+        <Heading style={{ marginLeft: 4 }}>steps_to_finish (KM)</Heading>
         <VSpace height={12} />
         <View style={styles.starButtonsContainer}>
           <SquareStarButton
             size={(width - 80) / 3}
-            isSelected={distance === 100000}
+            isSelected={stepsToFinish === 100000}
             onPress={() => {
-              setDistance(100000);
+              setStepsToFinish(100000);
             }}
             text="100km"
           />
@@ -73,9 +66,9 @@ export const CreateRaceScreen = () => {
           <SquareStarButton
             size={(width - 80) / 3}
             numberOfStars={2}
-            isSelected={distance === 250000}
+            isSelected={stepsToFinish === 250000}
             onPress={() => {
-              setDistance(250000);
+              setStepsToFinish(250000);
             }}
             text="250km"
           />
@@ -83,9 +76,9 @@ export const CreateRaceScreen = () => {
           <SquareStarButton
             numberOfStars={3}
             size={(width - 80) / 3}
-            isSelected={distance === 500000}
+            isSelected={stepsToFinish === 500000}
             onPress={() => {
-              setDistance(500000);
+              setStepsToFinish(500000);
             }}
             text="500km"
           />
@@ -109,7 +102,7 @@ export const CreateRaceScreen = () => {
       </View>
       <View style={[styles.stickyButtonContainer, { bottom: insets.bottom }]}>
         <PrimaryButton
-          disabled={!raceName || !distance || !endCondition}
+          disabled={!raceName || !stepsToFinish || !endCondition}
           onPress={onPressContinue}
         >
           Continue

@@ -4,18 +4,18 @@ import { useLoadedUser } from '../user/useUser';
 
 const _createRace = async ({
   name,
-  distance,
+  steps_to_finish,
   endCondition,
   userId,
 }: {
   name: string;
-  distance: number;
+  steps_to_finish: number;
   endCondition: 'winner_finished' | 'all_finished';
   userId: string;
 }) => {
   const { data, error } = await supabase.rpc('create_race', {
     name,
-    distance,
+    steps_to_finish,
     end_condition: endCondition,
     user_id: userId,
   });
@@ -34,7 +34,7 @@ export const useCreateRace = () => {
     mutationKey: ['races'],
     mutationFn: (arg: {
       name: string;
-      distance: number;
+      steps_to_finish: number;
       endCondition: 'winner_finished' | 'all_finished';
     }) => _createRace({ ...arg, userId: user.id }),
   });

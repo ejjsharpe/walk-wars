@@ -42,14 +42,13 @@ export interface RootStackParamList {
     hostId: string;
   };
 }
-export type RootStackParams = RootStackParamList & { [key: string]: undefined };
-
 interface MainTabsParamsList {
   Home: { raceId: string };
   Leaderboard: undefined;
   Profile: { isTab: boolean };
 }
 
+export type RootStackParams = RootStackParamList & { [key: string]: undefined };
 export type MainTabsParams = MainTabsParamsList & { [key: string]: undefined };
 
 declare global {
@@ -58,18 +57,11 @@ declare global {
   }
 }
 
-const Stack = createNativeStackNavigator<
-  RootStackParamList & { [key: string]: undefined }
->();
-const Tab = createBottomTabNavigator<
-  MainTabsParamsList & { [key: string]: undefined }
->();
+const Stack = createNativeStackNavigator<RootStackParams>();
+const Tab = createBottomTabNavigator<MainTabsParams>();
 
 function MainTabs() {
-  const { params } =
-    useRoute<
-      RouteProp<RootStackParamList & { [key: string]: undefined }, 'Main Tabs'>
-    >();
+  const { params } = useRoute<RouteProp<RootStackParams, 'Main Tabs'>>();
   return (
     <Tab.Navigator
       screenOptions={{
