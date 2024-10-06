@@ -1,31 +1,38 @@
-import { useLoadedRace } from '@/api/race/useRace';
 import { usePostStepLogs } from '@/api/stepLogs/usePostStepLogs';
+import { useStepCount } from '@/api/stepLogs/useStepCount';
 import { Dashboard } from '@/components/Dashboard';
 import { HomeScreenHeader } from '@/components/HomeScreenHeader';
 import { CloudSyncIconSvg } from '@/components/svg/CloudSyncIconSvg';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { VSpace } from '@/components/ui/Spacer';
 import { Heading } from '@/components/ui/Text';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { useCurrentRaceContext } from '@/contexts/CurrentRaceContext';
+import { Suspense } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 export const HomeScreen = () => {
-  const { params } =
-    useRoute<RouteProp<ReactNavigation.RootParamList, 'Home'>>();
-  const { race } = useLoadedRace({ raceId: params.raceId });
-  usePostStepLogs({ raceId: params.raceId });
+  const race = useCurrentRaceContext();
+  const { postStepLogs } = usePostStepLogs();
+  const { stepsToday, totalSteps } = useStepCount();
 
   return (
     <View style={styles.container}>
       <HomeScreenHeader raceName={race.name} />
       <ScrollView>
-        <VSpace height={28} />
-        <Dashboard />
-        <VSpace height={20} />
-        <PrimaryButton Icon={<CloudSyncIconSvg />}>Sync Progress</PrimaryButton>
-        <VSpace height={32} />
-        <Heading>Activity</Heading>
-        <VSpace height={20} />
+        <Suspense>
+          <VSpace height={28} />
+          <Dashboard stepsToday={stepsToday} percentComplete={totalSteps} />
+          <VSpace height={20} />
+          <PrimaryButton
+            onPress={() => postStepLogs()}
+            Icon={<CloudSyncIconSvg />}
+          >
+            Sync Progress
+          </PrimaryButton>
+          <VSpace height={32} />
+          <Heading>Activity</Heading>
+          <VSpace height={20} />
+        </Suspense>
       </ScrollView>
     </View>
   );

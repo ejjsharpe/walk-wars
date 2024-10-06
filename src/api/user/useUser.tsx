@@ -1,7 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from '../auth/useSession';
-import { type UseLoadedUser } from './types';
 
 const fetchUser = async ({ userId }: { userId: string }) => {
   let { data: users, error } = await supabase
@@ -22,7 +21,11 @@ export const useUser = () => {
     throw new Error('User being fetched with no session data');
   }
 
-  const { data: user, isPending: isUserPending } = useQuery({
+  const {
+    data: user,
+    isPending: isUserPending,
+    isError,
+  } = useQuery({
     queryKey: ['user'],
     queryFn: () => fetchUser({ userId: session.user.id }),
     staleTime: Infinity,
@@ -32,7 +35,18 @@ export const useUser = () => {
   return {
     user,
     isUserPending,
+    isError,
   };
 };
 
-export const useLoadedUser = useUser as UseLoadedUser;
+export const useLoadedUser = () => {
+  const { user } = useUser();
+
+  if (!user) {
+    throw new Error(
+      'use loaded user: hook used without user being previously loaded'
+    );
+  }
+
+  return { user };
+};

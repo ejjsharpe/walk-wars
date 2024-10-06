@@ -34,7 +34,7 @@ export function Button({
             sv.value,
             [0.98, 1],
             [
-              pressedBackgroundColor || Colors.electricBlue,
+              pressedBackgroundColor || '#38B3E0B3',
               backgroundColor || Colors.pictonBlue,
             ]
           ),
@@ -53,7 +53,7 @@ export function Button({
     sv.value = withSpring(1, {
       damping: 1,
       stiffness: 180,
-      mass: 0.2,
+      mass: 1,
     });
   };
 

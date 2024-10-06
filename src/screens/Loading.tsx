@@ -44,7 +44,9 @@ export const Loading = () => {
 
     if (race) {
       reset({
-        routes: [{ name: 'Main Tabs', params: { raceId: race.id } }],
+        routes: [
+          { name: 'Main Tabs', params: { raceId: race.id, userId: user.id } },
+        ],
       });
     }
   }, [
@@ -54,6 +56,7 @@ export const Loading = () => {
     reset,
     user?.avatar,
     user?.display_name,
+    user?.id,
     userRaceDetails,
   ]);
 

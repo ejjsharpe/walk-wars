@@ -1,6 +1,5 @@
 import { supabase } from '@/lib/supabase';
 import { useQuery } from '@tanstack/react-query';
-import { UseLoadedRace } from './types';
 
 const fetchRace = async ({ raceId }: { raceId: string }) => {
   const { data: races, error: racesError } = await supabase
@@ -20,7 +19,11 @@ export const useRace = ({
   raceId: string | undefined;
   refetchInterval?: number;
 }) => {
-  const { data: race, isPending: isRacePending } = useQuery({
+  const {
+    data: race,
+    isPending: isRacePending,
+    isError: isRaceError,
+  } = useQuery({
     queryKey: ['race', raceId],
     queryFn: () => fetchRace({ raceId: raceId as string }),
     staleTime: Infinity,
@@ -29,7 +32,5 @@ export const useRace = ({
     refetchInterval,
   });
 
-  return { race, isRacePending };
+  return { race, isRacePending, isRaceError };
 };
-
-export const useLoadedRace = useRace as UseLoadedRace;

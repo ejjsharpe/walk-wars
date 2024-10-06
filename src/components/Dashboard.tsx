@@ -7,9 +7,17 @@ import CircularProgressBar from './ui/CircularProgressBar';
 import { VSpace } from './ui/Spacer';
 import { Heading } from './ui/Text';
 
-export const Dashboard = () => {
+interface DashboardProps {
+  stepsToday: number;
+  percentComplete: number;
+}
+
+// TODO: remove default arg and add loading state
+export const Dashboard = ({
+  stepsToday = 0,
+  percentComplete,
+}: DashboardProps) => {
   const { width } = useWindowDimensions();
-  const distanceTravelledToday = '7.5';
 
   return (
     <View>
@@ -24,15 +32,18 @@ export const Dashboard = () => {
           ]}
         >
           <VSpace height={16} />
-          <CircularProgressBar size={Math.round((width - 60) / 2 - 72)} />
+          <CircularProgressBar
+            size={Math.round((width - 60) / 2 - 72)}
+            percentComplete={percentComplete}
+          />
           <VSpace height={12} />
           <Heading style={{ paddingBottom: 12 }}>PROGRESS</Heading>
         </View>
         <View style={{ width: 20 }}></View>
         <View>
           <DashboardWidgetSmall
-            value={distanceTravelledToday}
-            unit={'KM'}
+            value={stepsToday.toString()}
+            unit={'steps'}
             Icon={
               <RunnerManSvg width={48} height={48} color={Colors.pictonBlue} />
             }

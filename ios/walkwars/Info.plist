@@ -57,7 +57,7 @@
     <key>NSCameraUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your camera</string>
     <key>NSHealthShareUsageDescription</key>
-    <string>Walk Wars needs access to your health data in order to monitor your step count in our races</string>
+    <string>Walk Wars needs access to your health data in order to count your steps towards races</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your microphone</string>
     <key>NSPhotoLibraryUsageDescription</key>

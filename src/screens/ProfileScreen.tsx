@@ -1,5 +1,4 @@
 import { useMutateUser } from '@/api/user/useMutateUser';
-import { useLoadedUser } from '@/api/user/useUser';
 import { AvatarPlaceholderSvg } from '@/components/svg/AvatarPlaceholderSvg';
 import { ImageUploadIconSvg } from '@/components/svg/ImageUploadIconSvg';
 import { Input } from '@/components/ui/Input';
@@ -8,7 +7,10 @@ import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import * as Colors from '@/constants/Colors';
+import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { supabase } from '@/lib/supabase';
+import { MainTabsParamsList } from '@/navigation/MainTabs';
+import { UnauthenticatedStackParamList } from '@/navigation/UnauthenticatedStack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { decode } from 'base64-arraybuffer';
 import { Image } from 'expo-image';
@@ -16,7 +18,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { Fragment, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import type { MainTabsParams } from '../../App';
 
 const choosableColors = [
   '#FFFFFF',
@@ -30,7 +31,7 @@ const choosableColors = [
 ];
 
 export const ProfileScreen = () => {
-  const { user } = useLoadedUser();
+  const user = useCurrentUser();
   const [selectedColor, setSelectedColor] = useState(
     user.color || choosableColors[0]
   );
@@ -39,8 +40,8 @@ export const ProfileScreen = () => {
   const { mutateUserAsync } = useMutateUser();
   const { navigate } = useNavigation();
   const { params } = useRoute<
-    | RouteProp<ReactNavigation.RootParamList, 'Profile'>
-    | RouteProp<MainTabsParams, 'Profile'>
+    | RouteProp<UnauthenticatedStackParamList, 'Profile'>
+    | RouteProp<MainTabsParamsList, 'Profile'>
   >();
   const isTab = params?.isTab;
 

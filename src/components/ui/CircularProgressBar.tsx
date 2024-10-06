@@ -13,13 +13,21 @@ import Svg, { Circle } from 'react-native-svg';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
+interface CircularProgressBarProps {
+  size?: number;
+  strokeWidth?: number;
+  percentComplete: number;
+  backgroundStrokeColor?: string;
+  foregroundStrokeColor?: string;
+}
+
 export default function CircularProgressBar({
   size = 92,
   strokeWidth = 12,
-  percentComplete = 75,
+  percentComplete,
   backgroundStrokeColor = Colors.squidInkNavy,
   foregroundStrokeColor = Colors.pumpkinOrange,
-}) {
+}: CircularProgressBarProps) {
   const trueDiameter = size - strokeWidth;
   const radius = trueDiameter / 2;
   const circumference = Math.PI * 2 * radius;

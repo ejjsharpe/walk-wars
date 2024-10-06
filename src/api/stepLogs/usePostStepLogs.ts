@@ -1,3 +1,4 @@
+import { useCurrentRaceContext } from '@/contexts/CurrentRaceContext';
 import { queryClient } from '@/lib/reactQuery';
 import { supabase } from '@/lib/supabase';
 import { useMutation } from '@tanstack/react-query';
@@ -5,7 +6,7 @@ import { useEffect } from 'react';
 import { getHourlyStepLogs } from '../health/getHourlyStepLogs/getHourlyStepLogs';
 import { useRace } from '../race/useRace';
 import { useUser } from '../user/useUser';
-import { getStepLogs } from './useStepLogs';
+import { getStepLogs } from './useStepCount';
 
 export const generateAndUploadLogs = async ({
   userId,
@@ -16,7 +17,7 @@ export const generateAndUploadLogs = async ({
   raceId: string;
   raceStartTime: string;
 }) => {
-  const logs = await getStepLogs({ userId });
+  const logs = await getStepLogs({ userId, raceId });
   const mostRecentLogEndTimestamp = logs[0]?.end_timestamp;
 
   const generatedLogs = await getHourlyStepLogs({
@@ -35,9 +36,10 @@ export const generateAndUploadLogs = async ({
   return data;
 };
 
-export const usePostStepLogs = ({ raceId }: { raceId: string }) => {
+export const usePostStepLogs = () => {
+  const { id } = useCurrentRaceContext();
   const { user } = useUser();
-  const { race } = useRace({ raceId });
+  const { race } = useRace({ raceId: id });
 
   if (!user) throw new Error('cannot post step logs with no user');
   if (!race) throw new Error('cannot post step logs with no race');
@@ -49,22 +51,22 @@ export const usePostStepLogs = ({ raceId }: { raceId: string }) => {
     isPending: isPostStepLogsPending,
     data,
     mutate: postStepLogs,
-    error,
   } = useMutation({
     mutationFn: () =>
       generateAndUploadLogs({
         userId: user.id,
-        raceId,
+        raceId: race.id,
         raceStartTime: race.started_at as string,
       }),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ['userRaceDetails'] });
     },
+    // TODO: handle if logging steps fails
   });
 
   useEffect(() => {
     postStepLogs();
   }, [postStepLogs]);
 
-  return { isPostStepLogsPending, data };
+  return { isPostStepLogsPending, data, postStepLogs };
 };

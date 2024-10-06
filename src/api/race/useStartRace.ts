@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { useMutation } from '@tanstack/react-query';
 
 const _startRace = async ({ raceId }: { raceId: string }) => {
-  await supabase
+  return supabase
     .from('races')
     .update({ started_at: new Date().toISOString() })
     .eq('id', raceId);

@@ -1,6 +1,6 @@
+import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { supabase } from '@/lib/supabase';
 import { useMutation } from '@tanstack/react-query';
-import { useLoadedUser } from '../user/useUser';
 
 const _createRace = async ({
   name,
@@ -25,7 +25,7 @@ const _createRace = async ({
 };
 
 export const useCreateRace = () => {
-  const { user } = useLoadedUser();
+  const user = useCurrentUser();
   const {
     mutate: createRace,
     mutateAsync: createRaceAsync,

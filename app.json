@@ -54,7 +54,7 @@
       [
         "@kingstinct/react-native-healthkit",
         {
-          "NSHealthShareUsageDescription": "Walk Wars needs access to your health data in order to monitor your step count in our races",
+          "NSHealthShareUsageDescription": "Walk Wars needs access to your health data in order to count your steps towards races",
           "NSHealthUpdateUsageDescription": false,
           "background": true
         }
