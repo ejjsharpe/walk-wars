@@ -1,7 +1,6 @@
+import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { supabase } from '@/lib/supabase';
 import { useQuery } from '@tanstack/react-query';
-import { User } from '../user/types';
-import { useUser } from '../user/useUser';
 
 const fetchUsersRaceDetails = async ({ userId }: { userId: string }) => {
   const { data: userRaces, error: userRacesError } = await supabase
@@ -16,15 +15,14 @@ const fetchUsersRaceDetails = async ({ userId }: { userId: string }) => {
 };
 
 export const useUserRaceDetails = () => {
-  const { user } = useUser();
+  const { id } = useCurrentUser();
 
   const { data: userRaceDetails, isPending: isUserRaceDetailsPending } =
     useQuery({
       queryKey: ['userRaceDetails'],
-      queryFn: () => fetchUsersRaceDetails({ userId: (user as User).id }),
+      queryFn: () => fetchUsersRaceDetails({ userId: id }),
       staleTime: Infinity,
       gcTime: Infinity,
-      enabled: !!user,
     });
 
   return { userRaceDetails, isUserRaceDetailsPending };

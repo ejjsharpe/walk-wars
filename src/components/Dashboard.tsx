@@ -1,4 +1,5 @@
 import * as Colors from '@/constants/Colors';
+import { getOrdinal } from '@/utils/getOrdinal';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { DashboardWidgetSmall } from './DashboardWidgetSmall';
 import { RunnerManSvg } from './svg/RunnerIconSvg';
@@ -10,12 +11,14 @@ import { Heading } from './ui/Text';
 interface DashboardProps {
   stepsToday: number;
   percentComplete: number;
+  racePosition: number;
 }
 
 // TODO: remove default arg and add loading state
 export const Dashboard = ({
   stepsToday = 0,
   percentComplete,
+  racePosition,
 }: DashboardProps) => {
   const { width } = useWindowDimensions();
 
@@ -54,7 +57,7 @@ export const Dashboard = ({
             Icon={
               <TrophyIconSvg width={48} height={48} color={Colors.pictonBlue} />
             }
-            value="2nd"
+            value={racePosition + getOrdinal(racePosition)}
             unit="place"
           />
         </View>

@@ -9,7 +9,6 @@ import { View } from 'react-native';
 export const Loading = () => {
   const { user, isUserPending } = useUser();
   const { userRaceDetails, isUserRaceDetailsPending } = useUserRaceDetails();
-
   const { race } = useRace({ raceId: userRaceDetails?.race_id });
   const { reset } = useNavigation();
 

@@ -5,7 +5,7 @@ import { createContext, ReactNode, useContext } from 'react';
 
 export const CurrentRaceContext = createContext<Race | undefined | null>(null);
 
-export const useCurrentRaceContext = () => {
+export const useCurrentRace = () => {
   const race = useContext(CurrentRaceContext);
 
   if (!race) throw new Error('current race context: no value provided');

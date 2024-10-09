@@ -1,4 +1,4 @@
-import { useCurrentRaceContext } from '@/contexts/CurrentRaceContext';
+import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { supabase } from '@/lib/supabase';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
@@ -25,7 +25,7 @@ export const getStepLogs = async ({
 };
 
 export const useStepCount = () => {
-  const { id: raceId } = useCurrentRaceContext();
+  const { id: raceId } = useCurrentRace();
   const { id: userId } = useCurrentUser();
 
   const { isPending: isStepLogsPending, data: stepLogs } = useSuspenseQuery({

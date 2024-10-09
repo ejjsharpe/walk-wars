@@ -17,7 +17,10 @@ import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { Fragment, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 
 const choosableColors = [
   '#FFFFFF',
@@ -44,6 +47,7 @@ export const ProfileScreen = () => {
     | RouteProp<MainTabsParamsList, 'Profile'>
   >();
   const isTab = params?.isTab;
+  const insets = useSafeAreaInsets();
 
   const onPressAddImage = async () => {
     try {
@@ -102,10 +106,10 @@ export const ProfileScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeAreaView}>
+    <View style={[styles.safeAreaView, { paddingTop: insets.top }]}>
       <ScreenHeader hideBackButton={isTab}>Profile</ScreenHeader>
       <VSpace height={12} />
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView>
         <View style={styles.contentContainer}>
           <VSpace height={12} />
           {!isTab && (
@@ -176,7 +180,7 @@ export const ProfileScreen = () => {
             <Input onChangeText={setDisplayName} value={displayName} />
           </View>
         </View>
-        <VSpace height={40} />
+        <VSpace height={88} />
         <View style={[styles.stickyButtonContainer]}>
           <PrimaryButton
             disabled={!displayName || !user?.avatar}
@@ -186,7 +190,7 @@ export const ProfileScreen = () => {
           </PrimaryButton>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

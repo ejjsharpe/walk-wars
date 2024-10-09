@@ -1,4 +1,4 @@
-import { useCurrentRaceContext } from '@/contexts/CurrentRaceContext';
+import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { queryClient } from '@/lib/reactQuery';
 import { supabase } from '@/lib/supabase';
 import { useMutation } from '@tanstack/react-query';
@@ -37,7 +37,7 @@ export const generateAndUploadLogs = async ({
 };
 
 export const usePostStepLogs = () => {
-  const { id } = useCurrentRaceContext();
+  const { id } = useCurrentRace();
   const { user } = useUser();
   const { race } = useRace({ raceId: id });
 

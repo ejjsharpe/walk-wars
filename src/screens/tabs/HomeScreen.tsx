@@ -1,3 +1,4 @@
+import { useRacePlayers } from '@/api/race/useRacePlayers';
 import { usePostStepLogs } from '@/api/stepLogs/usePostStepLogs';
 import { useStepCount } from '@/api/stepLogs/useStepCount';
 import { Dashboard } from '@/components/Dashboard';
@@ -6,14 +7,19 @@ import { CloudSyncIconSvg } from '@/components/svg/CloudSyncIconSvg';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { VSpace } from '@/components/ui/Spacer';
 import { Heading } from '@/components/ui/Text';
-import { useCurrentRaceContext } from '@/contexts/CurrentRaceContext';
+import { useCurrentRace } from '@/contexts/CurrentRaceContext';
+import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { Suspense } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 export const HomeScreen = () => {
-  const race = useCurrentRaceContext();
+  const race = useCurrentRace();
+  const user = useCurrentUser();
   const { postStepLogs } = usePostStepLogs();
   const { stepsToday, totalSteps } = useStepCount();
+  const { racePlayers } = useRacePlayers();
+  const currentPosition =
+    racePlayers.findIndex((player) => player.id === user.id) + 1;
 
   return (
     <View style={styles.container}>
@@ -21,7 +27,11 @@ export const HomeScreen = () => {
       <ScrollView>
         <Suspense>
           <VSpace height={28} />
-          <Dashboard stepsToday={stepsToday} percentComplete={totalSteps} />
+          <Dashboard
+            stepsToday={stepsToday}
+            percentComplete={totalSteps}
+            racePosition={currentPosition}
+          />
           <VSpace height={20} />
           <PrimaryButton
             onPress={() => postStepLogs()}

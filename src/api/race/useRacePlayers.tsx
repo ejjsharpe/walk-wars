@@ -1,4 +1,4 @@
-import { useCurrentRaceContext } from '@/contexts/CurrentRaceContext';
+import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { supabase } from '@/lib/supabase';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
@@ -34,7 +34,7 @@ const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
 };
 
 export const useRacePlayers = () => {
-  const { id } = useCurrentRaceContext();
+  const { id } = useCurrentRace();
   const { data: racePlayers } = useSuspenseQuery({
     queryKey: ['racePlayers'],
     queryFn: () => fetchRacePlayers({ raceId: id }),

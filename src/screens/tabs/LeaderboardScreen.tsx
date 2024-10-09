@@ -2,11 +2,11 @@ import { useRacePlayers } from '@/api/race/useRacePlayers';
 import { LeaderboardCard } from '@/components/LeaderboardCard';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { VSpace } from '@/components/ui/Spacer';
-import { useCurrentRaceContext } from '@/contexts/CurrentRaceContext';
-
+import { Text } from '@/components/ui/Text';
+import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { FlashList } from '@shopify/flash-list';
 import { Suspense, useCallback } from 'react';
-
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface RacePlayer {
@@ -20,7 +20,7 @@ interface RacePlayer {
 }
 
 export const LeaderboardScreen = () => {
-  const race = useCurrentRaceContext();
+  const race = useCurrentRace();
   const { racePlayers } = useRacePlayers();
 
   const renderItem = useCallback(
@@ -32,7 +32,9 @@ export const LeaderboardScreen = () => {
           position={index + 1}
           username={item.display_name!}
           key={item.id}
-          totalStepsInRace={race.steps_to_finish!}
+          percentComplete={
+            (race.steps_to_finish! / item.adjusted_step_count) * 100
+          }
         />
       );
     },
@@ -40,15 +42,23 @@ export const LeaderboardScreen = () => {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScreenHeader hideBackButton>Leaderboard</ScreenHeader>
       <VSpace height={20} />
-      <Suspense>
-        <FlashList
-          data={racePlayers}
-          renderItem={renderItem}
-          estimatedItemSize={200}
-        />
+      <Suspense fallback={<Text>Loading...</Text>}>
+        <View
+          style={{
+            flex: 1,
+            paddingHorizontal: 20,
+            width: '100%',
+          }}
+        >
+          <FlashList
+            data={racePlayers}
+            renderItem={renderItem}
+            estimatedItemSize={200}
+          />
+        </View>
       </Suspense>
     </SafeAreaView>
   );

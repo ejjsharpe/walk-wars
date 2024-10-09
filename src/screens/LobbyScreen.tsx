@@ -7,7 +7,7 @@ import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import * as Colors from '@/constants/Colors';
-import { useCurrentRaceContext } from '@/contexts/CurrentRaceContext';
+import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { useNavigation } from '@react-navigation/native';
 import { Suspense, useEffect, useState } from 'react';
@@ -15,9 +15,8 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 export const LobbyScreen = () => {
   const [userToInvite, setUserToInvite] = useState('');
-
   const user = useCurrentUser();
-  const race = useCurrentRaceContext();
+  const race = useCurrentRace();
   const { lobbyPlayers } = useLobbyPlayersSuspense();
   const isHost = race.host_id === user.id;
   const { reset } = useNavigation();
