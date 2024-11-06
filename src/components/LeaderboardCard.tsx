@@ -8,7 +8,6 @@ interface LeaderboardCardProps {
   position: number;
   avatarUrl: string;
   numberOfSteps: number;
-  percentComplete: number;
 }
 
 export function LeaderboardCard({
@@ -16,7 +15,6 @@ export function LeaderboardCard({
   position,
   numberOfSteps,
   avatarUrl,
-  percentComplete,
 }: LeaderboardCardProps) {
   const stepsText = `${numberOfSteps} \n steps`;
   return (
@@ -36,23 +34,6 @@ export function LeaderboardCard({
       >
         <Heading style={{ height: '50%', flexGrow: 1 }}>{username}</Heading>
         <VSpace height={8} />
-        <View
-          style={{
-            backgroundColor: 'grey',
-            borderRadius: 8,
-            height: 4,
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: 'orange',
-              borderRadius: 8,
-              height: 4,
-              position: 'absolute',
-              width: `${percentComplete}%`,
-            }}
-          ></View>
-        </View>
       </View>
       <Text style={{ textAlign: 'center', fontSize: 16 }}>{stepsText}</Text>
     </View>

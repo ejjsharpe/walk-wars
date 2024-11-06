@@ -150,35 +150,32 @@ export type Database = {
       races: {
         Row: {
           created_at: string
-          end_condition: Database["public"]["Enums"]["end_condition"]
-          ended_at: string | null
+          duration_days: number
+          end_timestamp: string | null
           host_id: string
           id: string
           name: string
-          started_at: string | null
-          steps_to_finish: number | null
+          start_timestamp: string | null
           updated_at: string | null
         }
         Insert: {
           created_at?: string
-          end_condition?: Database["public"]["Enums"]["end_condition"]
-          ended_at?: string | null
+          duration_days: number
+          end_timestamp?: string | null
           host_id: string
           id?: string
           name: string
-          started_at?: string | null
-          steps_to_finish?: number | null
+          start_timestamp?: string | null
           updated_at?: string | null
         }
         Update: {
           created_at?: string
-          end_condition?: Database["public"]["Enums"]["end_condition"]
-          ended_at?: string | null
+          duration_days?: number
+          end_timestamp?: string | null
           host_id?: string
           id?: string
           name?: string
-          started_at?: string | null
-          steps_to_finish?: number | null
+          start_timestamp?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -261,21 +258,14 @@ export type Database = {
           id?: string
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "users_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       users_races: {
         Row: {
           adjusted_step_count: number
           finish_position: number | null
           id: string
+          is_finished: boolean
           joined_race_at: string
           race_id: string
           total_step_count: number
@@ -286,6 +276,7 @@ export type Database = {
           adjusted_step_count?: number
           finish_position?: number | null
           id?: string
+          is_finished?: boolean
           joined_race_at?: string
           race_id: string
           total_step_count?: number
@@ -296,6 +287,7 @@ export type Database = {
           adjusted_step_count?: number
           finish_position?: number | null
           id?: string
+          is_finished?: boolean
           joined_race_at?: string
           race_id?: string
           total_step_count?: number
@@ -332,6 +324,7 @@ export type Database = {
           adjusted_step_count: number
           finish_position: number | null
           id: string
+          is_finished: boolean
           joined_race_at: string
           race_id: string
           total_step_count: number
@@ -339,7 +332,7 @@ export type Database = {
           user_id: string
         }
       }
-      addsteplogs: {
+      add_step_logs: {
         Args: {
           steplogsarray: Json
           raceid: string
@@ -351,18 +344,16 @@ export type Database = {
         Args: {
           user_id: string
           name: string
-          steps_to_finish: number
-          end_condition: Database["public"]["Enums"]["end_condition"]
+          duration_days: number
         }
         Returns: {
           created_at: string
-          end_condition: Database["public"]["Enums"]["end_condition"]
-          ended_at: string | null
+          duration_days: number
+          end_timestamp: string | null
           host_id: string
           id: string
           name: string
-          started_at: string | null
-          steps_to_finish: number | null
+          start_timestamp: string | null
           updated_at: string | null
         }
       }
@@ -389,6 +380,12 @@ export type Database = {
           color: string
           status: string
         }[]
+      }
+      start_race: {
+        Args: {
+          race_id: string
+        }
+        Returns: undefined
       }
     }
     Enums: {
@@ -480,4 +477,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never

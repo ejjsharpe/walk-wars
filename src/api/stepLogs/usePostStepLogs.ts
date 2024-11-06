@@ -25,7 +25,7 @@ export const generateAndUploadLogs = async ({
     to: new Date(),
   });
 
-  const { data, error } = await supabase.rpc('addsteplogs', {
+  const { data, error } = await supabase.rpc('add_step_logs', {
     steplogsarray: generatedLogs,
     raceid: raceId,
     userid: userId,
@@ -43,7 +43,7 @@ export const usePostStepLogs = () => {
 
   if (!user) throw new Error('cannot post step logs with no user');
   if (!race) throw new Error('cannot post step logs with no race');
-  if (!race.started_at) {
+  if (!race.start_timestamp) {
     throw new Error('cannot post logs for a race that has not started');
   }
 
@@ -56,7 +56,7 @@ export const usePostStepLogs = () => {
       generateAndUploadLogs({
         userId: user.id,
         raceId: race.id,
-        raceStartTime: race.started_at as string,
+        raceStartTime: race.start_timestamp as string,
       }),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ['userRaceDetails'] });

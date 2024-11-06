@@ -3,10 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { useMutation } from '@tanstack/react-query';
 
 const _startRace = async ({ raceId }: { raceId: string }) => {
-  return supabase
-    .from('races')
-    .update({ started_at: new Date().toISOString() })
-    .eq('id', raceId);
+  return supabase.rpc('start_race', { race_id: raceId });
 };
 
 export const useStartRace = () => {

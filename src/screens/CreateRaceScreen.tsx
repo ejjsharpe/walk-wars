@@ -1,6 +1,5 @@
 import { useCreateRace } from '@/api/race/useCreateRace';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
-import { SelectableButton } from '@/components/ui/buttons/SelectableButton';
 import { SquareStarButton } from '@/components/ui/buttons/SquareStarButton';
 import { Input } from '@/components/ui/Input';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
@@ -17,10 +16,7 @@ import {
 
 export const CreateRaceScreen = () => {
   const [raceName, setRaceName] = useState('');
-  const [stepsToFinish, setStepsToFinish] = useState(100000);
-  const [endCondition, setEndCondition] = useState<
-    'winner_finished' | 'all_finished'
-  >('all_finished');
+  const [durationDays, setDurationDays] = useState(100000);
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const { createRace } = useCreateRace();
@@ -28,7 +24,7 @@ export const CreateRaceScreen = () => {
 
   const onPressContinue = () => {
     createRace(
-      { name: raceName, steps_to_finish: stepsToFinish, endCondition },
+      { name: raceName, durationDays },
       {
         onSuccess: async (race) => {
           await queryClient.setQueryData(['race'], race);
@@ -56,55 +52,39 @@ export const CreateRaceScreen = () => {
         <View style={styles.starButtonsContainer}>
           <SquareStarButton
             size={(width - 80) / 3}
-            isSelected={stepsToFinish === 100000}
+            isSelected={durationDays === 7}
             onPress={() => {
-              setStepsToFinish(100000);
+              setDurationDays(7);
             }}
-            text="100km"
+            text="1 week"
           />
           <View style={{ width: 20 }} />
           <SquareStarButton
             size={(width - 80) / 3}
             numberOfStars={2}
-            isSelected={stepsToFinish === 250000}
+            isSelected={durationDays === 30}
             onPress={() => {
-              setStepsToFinish(250000);
+              setDurationDays(30);
             }}
-            text="250km"
+            text="1 month"
           />
           <View style={{ width: 20 }} />
           <SquareStarButton
             numberOfStars={3}
             size={(width - 80) / 3}
-            isSelected={stepsToFinish === 500000}
+            isSelected={durationDays === 90}
             onPress={() => {
-              setStepsToFinish(500000);
+              setDurationDays(90);
             }}
-            text="500km"
+            text="3 months"
           />
         </View>
         <VSpace height={32} />
         <Heading style={{ marginLeft: 4 }}>ENDS WHEN</Heading>
         <VSpace height={12} />
-        <SelectableButton
-          onPress={() => setEndCondition('all_finished')}
-          isSelected={endCondition === 'all_finished'}
-        >
-          Everyone finishes
-        </SelectableButton>
-        <VSpace height={12} />
-        <SelectableButton
-          onPress={() => setEndCondition('winner_finished')}
-          isSelected={endCondition === 'winner_finished'}
-        >
-          Winner finishes
-        </SelectableButton>
       </View>
       <View style={[styles.stickyButtonContainer, { bottom: insets.bottom }]}>
-        <PrimaryButton
-          disabled={!raceName || !stepsToFinish || !endCondition}
-          onPress={onPressContinue}
-        >
+        <PrimaryButton disabled={!raceName} onPress={onPressContinue}>
           Continue
         </PrimaryButton>
       </View>

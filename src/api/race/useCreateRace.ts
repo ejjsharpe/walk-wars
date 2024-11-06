@@ -4,20 +4,17 @@ import { useMutation } from '@tanstack/react-query';
 
 const _createRace = async ({
   name,
-  steps_to_finish,
-  endCondition,
+  durationDays,
   userId,
 }: {
   name: string;
-  steps_to_finish: number;
-  endCondition: 'winner_finished' | 'all_finished';
+  durationDays: number;
   userId: string;
 }) => {
   const { data, error } = await supabase.rpc('create_race', {
     name,
-    steps_to_finish,
-    end_condition: endCondition,
     user_id: userId,
+    duration_days: durationDays,
   });
 
   if (error) throw error;
@@ -32,11 +29,8 @@ export const useCreateRace = () => {
     isPending: isCreateRacePending,
   } = useMutation({
     mutationKey: ['races'],
-    mutationFn: (arg: {
-      name: string;
-      steps_to_finish: number;
-      endCondition: 'winner_finished' | 'all_finished';
-    }) => _createRace({ ...arg, userId: user.id }),
+    mutationFn: (arg: { name: string; durationDays: number }) =>
+      _createRace({ ...arg, userId: user.id }),
   });
 
   return { createRace, createRaceAsync, isCreateRacePending };

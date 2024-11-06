@@ -6,6 +6,7 @@ import { Loading } from '@/screens/Loading';
 import { LobbyScreen } from '@/screens/LobbyScreen';
 import { NoRaceScreen } from '@/screens/NoRaceScreen';
 import { ProfileScreen } from '@/screens/ProfileScreen';
+import { RaceComplete } from '@/screens/RaceComplete';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export type AuthenticatedStackParamList = {
@@ -15,7 +16,8 @@ export type AuthenticatedStackParamList = {
   'No Race': undefined;
   'Create Race': undefined;
   Invitations: undefined;
-  Lobby: undefined;
+  Lobby: { raceId: string; raceName: string };
+  'Race Complete': undefined;
 } & { [key: string]: undefined };
 
 const Stack = createNativeStackNavigator<AuthenticatedStackParamList>();
@@ -41,6 +43,7 @@ export const AuthenticatedStack = () => {
         <Stack.Screen name="Create Race" component={CreateRaceScreen} />
         <Stack.Screen name="Invitations" component={InvitationsScreen} />
         <Stack.Screen name="Lobby" component={LobbyScreen} />
+        <Stack.Screen name="Race Complete" component={RaceComplete} />
       </Stack.Navigator>
     </CurrentUserProvider>
   );

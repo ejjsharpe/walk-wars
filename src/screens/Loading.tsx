@@ -3,6 +3,7 @@ import { useUserRaceDetails } from '@/api/race/useUserRaceDetails';
 import { useUser } from '@/api/user/useUser';
 import { Heading } from '@/components/ui/Text';
 import { useNavigation } from '@react-navigation/native';
+import { isBefore } from 'date-fns';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 
@@ -25,7 +26,7 @@ export const Loading = () => {
       return;
     }
 
-    if (race && !race.started_at) {
+    if (race && !race.start_timestamp) {
       reset({
         routes: [
           {
@@ -39,6 +40,16 @@ export const Loading = () => {
         ],
       });
       return;
+    }
+
+    if (
+      race &&
+      race.end_timestamp &&
+      isBefore(new Date(race.end_timestamp), Date.now())
+    ) {
+      reset({
+        routes: [{ name: 'Race Complete' }],
+      });
     }
 
     if (race) {

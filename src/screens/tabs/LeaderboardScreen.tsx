@@ -20,7 +20,6 @@ interface RacePlayer {
 }
 
 export const LeaderboardScreen = () => {
-  const race = useCurrentRace();
   const { racePlayers } = useRacePlayers();
 
   const renderItem = useCallback(
@@ -32,13 +31,10 @@ export const LeaderboardScreen = () => {
           position={index + 1}
           username={item.display_name!}
           key={item.id}
-          percentComplete={
-            (race.steps_to_finish! / item.adjusted_step_count) * 100
-          }
         />
       );
     },
-    [race.steps_to_finish]
+    []
   );
 
   return (

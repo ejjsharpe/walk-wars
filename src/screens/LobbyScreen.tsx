@@ -1,4 +1,5 @@
 import { useLobbyPlayersSuspense } from '@/api/race/useLobbyPlayers';
+import { useRace } from '@/api/race/useRace';
 import { useStartRace } from '@/api/race/useStartRace';
 import { PlayerLobbyCard } from '@/components/PlayerLobbyCard';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
@@ -7,30 +8,32 @@ import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import * as Colors from '@/constants/Colors';
-import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { useCurrentUser } from '@/contexts/CurrentUserContext';
-import { useNavigation } from '@react-navigation/native';
+import { AuthenticatedStackParamList } from '@/navigation/AuthenticatedStack';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Suspense, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 export const LobbyScreen = () => {
   const [userToInvite, setUserToInvite] = useState('');
   const user = useCurrentUser();
-  const race = useCurrentRace();
+  const route = useRoute<RouteProp<AuthenticatedStackParamList, 'Lobby'>>();
+  const { raceId, raceName } = route.params;
+  const { race } = useRace({ raceId });
   const { lobbyPlayers } = useLobbyPlayersSuspense();
-  const isHost = race.host_id === user.id;
+  const isHost = race?.host_id === user.id;
   const { reset } = useNavigation();
   const { startRace } = useStartRace();
 
   useEffect(() => {
-    if (!!race.started_at) {
-      reset({ routes: [{ name: 'Main Tabs', params: { raceId: race.id } }] });
+    if (!!race?.start_timestamp) {
+      reset({ routes: [{ name: 'Main Tabs', params: { raceId: raceId } }] });
     }
-  }, [race.id, race.started_at, reset]);
+  }, [race?.start_timestamp, raceId, reset]);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <ScreenHeader>{race.name}</ScreenHeader>
+      <ScreenHeader>{raceName}</ScreenHeader>
       <View style={styles.screenWidth}>
         <VSpace height={32} />
         <Heading style={{ marginLeft: 4 }}>INVITE</Heading>

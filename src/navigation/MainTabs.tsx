@@ -1,3 +1,4 @@
+import { useRace } from '@/api/race/useRace';
 import { LeaderboardIconSvg } from '@/components/svg/LeaderboardIconSvg';
 import { ProfileIconSvg } from '@/components/svg/ProfileIconSvg';
 import { RunnerManSvg } from '@/components/svg/RunnerIconSvg';
@@ -7,7 +8,9 @@ import { ProfileScreen } from '@/screens/ProfileScreen';
 import { HomeScreen } from '@/screens/tabs/HomeScreen';
 import { LeaderboardScreen } from '@/screens/tabs/LeaderboardScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { isBefore } from 'date-fns';
+import { useEffect } from 'react';
 import { AuthenticatedStackParamList } from './AuthenticatedStack';
 
 export type MainTabsParamsList = {
@@ -19,11 +22,25 @@ export type MainTabsParamsList = {
 const Tab = createBottomTabNavigator<MainTabsParamsList>();
 
 export const MainTabs = () => {
-  const { params } =
-    useRoute<RouteProp<AuthenticatedStackParamList, 'Main Tabs'>>();
+  const route = useRoute<RouteProp<AuthenticatedStackParamList, 'Main Tabs'>>();
+  const { raceId } = route.params;
+  const { reset } = useNavigation();
+  const { race } = useRace({ raceId });
+
+  useEffect(() => {
+    if (
+      race &&
+      race.end_timestamp &&
+      isBefore(new Date(race.end_timestamp), Date.now())
+    ) {
+      reset({
+        routes: [{ name: 'Race Complete' }],
+      });
+    }
+  }, [race, reset]);
 
   return (
-    <CurrentRaceProvider raceId={params.raceId}>
+    <CurrentRaceProvider raceId={raceId}>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
