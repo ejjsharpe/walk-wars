@@ -1,5 +1,5 @@
-import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { supabase } from '@/lib/supabase';
+import { useCurrentRace } from '@/stores/currentRaceStore';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 const fetchLobbyPlayers = async ({ raceId }: { raceId: string }) => {
@@ -13,11 +13,11 @@ const fetchLobbyPlayers = async ({ raceId }: { raceId: string }) => {
 };
 
 export const useLobbyPlayersSuspense = () => {
-  const { id } = useCurrentRace();
+  const { raceId } = useCurrentRace();
 
   const { data: lobbyPlayers } = useSuspenseQuery({
-    queryKey: ['lobby_players', id],
-    queryFn: () => fetchLobbyPlayers({ raceId: id }),
+    queryKey: ['lobby_players', raceId],
+    queryFn: () => fetchLobbyPlayers({ raceId }),
     refetchInterval: 5000,
   });
 

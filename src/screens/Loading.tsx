@@ -3,18 +3,17 @@ import { useUserRaceDetails } from '@/api/race/useUserRaceDetails';
 import { useUser } from '@/api/user/useUser';
 import { Heading } from '@/components/ui/Text';
 import { useNavigation } from '@react-navigation/native';
-import { isBefore } from 'date-fns';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 
 export const Loading = () => {
   const { user, isUserPending } = useUser();
   const { userRaceDetails, isUserRaceDetailsPending } = useUserRaceDetails();
-  const { race } = useRace({ raceId: userRaceDetails?.race_id });
+  const { race, isRacePending } = useRace({ raceId: userRaceDetails?.race_id });
   const { reset } = useNavigation();
 
   useEffect(() => {
-    if (isUserPending || isUserRaceDetailsPending) return;
+    if (isUserPending || isUserRaceDetailsPending || isRacePending) return;
 
     if (!user?.avatar || !user?.display_name) {
       reset({ routes: [{ name: 'Profile' }] });
@@ -42,16 +41,6 @@ export const Loading = () => {
       return;
     }
 
-    if (
-      race &&
-      race.end_timestamp &&
-      isBefore(new Date(race.end_timestamp), Date.now())
-    ) {
-      reset({
-        routes: [{ name: 'Race Complete' }],
-      });
-    }
-
     if (race) {
       reset({
         routes: [
@@ -60,6 +49,7 @@ export const Loading = () => {
       });
     }
   }, [
+    isRacePending,
     isUserPending,
     isUserRaceDetailsPending,
     race,

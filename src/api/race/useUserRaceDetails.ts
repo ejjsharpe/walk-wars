@@ -1,4 +1,4 @@
-import { useCurrentUser } from '@/contexts/CurrentUserContext';
+import { useLoadedUser } from '@/api/user/useUser';
 import { supabase } from '@/lib/supabase';
 import { useQuery } from '@tanstack/react-query';
 
@@ -16,12 +16,12 @@ const fetchUsersRaceDetails = async ({ userId }: { userId: string }) => {
 };
 
 export const useUserRaceDetails = () => {
-  const { id } = useCurrentUser();
+  const { user } = useLoadedUser();
 
   const { data: userRaceDetails, isPending: isUserRaceDetailsPending } =
     useQuery({
       queryKey: ['userRaceDetails'],
-      queryFn: () => fetchUsersRaceDetails({ userId: id }),
+      queryFn: () => fetchUsersRaceDetails({ userId: user.id }),
       staleTime: Infinity,
       gcTime: Infinity,
     });

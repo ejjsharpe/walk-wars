@@ -1,9 +1,8 @@
-import { useCurrentRace } from '@/contexts/CurrentRaceContext';
-import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { supabase } from '@/lib/supabase';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { isToday } from 'date-fns';
-import { useUser } from '../user/useUser';
+import { useLoadedRace } from '../race/useRace';
+import { useLoadedUser } from '../user/useUser';
 
 export const getStepLogs = async ({
   userId,
@@ -25,12 +24,12 @@ export const getStepLogs = async ({
 };
 
 export const useStepCount = () => {
-  const { id: raceId } = useCurrentRace();
-  const { id: userId } = useCurrentUser();
+  const { race } = useLoadedRace();
+  const { user } = useLoadedUser();
 
   const { isPending: isStepLogsPending, data: stepLogs } = useSuspenseQuery({
     queryKey: ['stepLogs'],
-    queryFn: () => getStepLogs({ userId, raceId }),
+    queryFn: () => getStepLogs({ userId: user.id, raceId: race.id }),
     select: (data) => {
       let steps = 0;
       let totalSteps = 0;

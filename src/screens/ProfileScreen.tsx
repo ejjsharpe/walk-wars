@@ -1,4 +1,5 @@
 import { useMutateUser } from '@/api/user/useMutateUser';
+import { useLoadedUser } from '@/api/user/useUser';
 import { AvatarPlaceholderSvg } from '@/components/svg/AvatarPlaceholderSvg';
 import { ImageUploadIconSvg } from '@/components/svg/ImageUploadIconSvg';
 import { Input } from '@/components/ui/Input';
@@ -7,7 +8,6 @@ import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import * as Colors from '@/constants/Colors';
-import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { supabase } from '@/lib/supabase';
 import { MainTabsParamsList } from '@/navigation/MainTabs';
 import { UnauthenticatedStackParamList } from '@/navigation/UnauthenticatedStack';
@@ -31,7 +31,7 @@ const choosableColors = [
 ];
 
 export const ProfileScreen = () => {
-  const user = useCurrentUser();
+  const { user } = useLoadedUser();
   const [selectedColor, setSelectedColor] = useState(
     user.color || choosableColors[0]
   );

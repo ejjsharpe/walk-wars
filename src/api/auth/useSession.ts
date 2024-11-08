@@ -32,5 +32,5 @@ export const useSession = () => {
     }
   }, [isPending, queryClient]);
 
-  return { session: data, isAuthenticated: !!data, isAuthLoading: isPending };
+  return { session: data, isAuthenticated: !!data, isAuthPending: isPending };
 };

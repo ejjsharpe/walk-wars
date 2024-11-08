@@ -1,8 +1,8 @@
-import { useUserRaceDetails } from '@/api/race/useUserRaceDetails';
 import raceEndAnimation from '@/assets/lottieAnimations/race-complete-animation.json';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { celestialBlue, pumpkinOrange } from '@/constants/Colors';
 import * as Fonts from '@/constants/Fonts';
+import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
@@ -13,11 +13,12 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export function RaceComplete() {
+export function RaceCompleteScreen() {
   const ref = useRef<LottieView>(null);
   const { width, height } = useWindowDimensions();
   const { bottom } = useSafeAreaInsets();
   const [isTextVisible, setIsTextVisible] = useState(false);
+  const { navigate } = useNavigation();
 
   const handleAnimationFinish = () => {
     ref.current?.play(180, 240);
@@ -31,6 +32,10 @@ export function RaceComplete() {
 
     return () => clearInterval(timeout);
   }, []);
+
+  const onPressSeeResults = () => {
+    navigate('Results');
+  };
 
   return (
     <View
@@ -95,7 +100,7 @@ export function RaceComplete() {
         entering={FadeIn.delay(2200).duration(800)}
         style={{ position: 'absolute', bottom, width: '100%' }}
       >
-        <PrimaryButton>Continue</PrimaryButton>
+        <PrimaryButton onPress={onPressSeeResults}>Continue</PrimaryButton>
       </Animated.View>
     </View>
   );

@@ -1,4 +1,4 @@
-import { useCurrentUser } from '@/contexts/CurrentUserContext';
+import { useLoadedUser } from '@/api/user/useUser';
 import { supabase } from '@/lib/supabase';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Invitation } from './types';
@@ -13,7 +13,7 @@ export const fetchInvitations = async ({ userId }: { userId: string }) => {
 };
 
 export const useInvitationsSuspense = () => {
-  const user = useCurrentUser();
+  const { user } = useLoadedUser();
 
   const { data: invitations } = useSuspenseQuery({
     queryKey: ['invitations'],

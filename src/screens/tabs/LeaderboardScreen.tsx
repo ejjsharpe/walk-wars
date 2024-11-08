@@ -1,9 +1,8 @@
-import { useRacePlayers } from '@/api/race/useRacePlayers';
+import { useRacePlayersSuspense } from '@/api/race/useRacePlayers';
 import { LeaderboardCard } from '@/components/LeaderboardCard';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { VSpace } from '@/components/ui/Spacer';
 import { Text } from '@/components/ui/Text';
-import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { FlashList } from '@shopify/flash-list';
 import { Suspense, useCallback } from 'react';
 import { View } from 'react-native';
@@ -20,7 +19,7 @@ interface RacePlayer {
 }
 
 export const LeaderboardScreen = () => {
-  const { racePlayers } = useRacePlayers();
+  const { racePlayers } = useRacePlayersSuspense();
 
   const renderItem = useCallback(
     ({ item, index }: { item: RacePlayer; index: number }) => {

@@ -1,23 +1,23 @@
-import { useRacePlayers } from '@/api/race/useRacePlayers';
+import { useLoadedRace } from '@/api/race/useRace';
+import { useRacePlayersSuspense } from '@/api/race/useRacePlayers';
 import { usePostStepLogs } from '@/api/stepLogs/usePostStepLogs';
 import { useStepCount } from '@/api/stepLogs/useStepCount';
+import { useLoadedUser } from '@/api/user/useUser';
 import { Dashboard } from '@/components/Dashboard';
 import { HomeScreenHeader } from '@/components/HomeScreenHeader';
 import { CloudSyncIconSvg } from '@/components/svg/CloudSyncIconSvg';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { VSpace } from '@/components/ui/Spacer';
 import { Heading } from '@/components/ui/Text';
-import { useCurrentRace } from '@/contexts/CurrentRaceContext';
-import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { Suspense } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 export const HomeScreen = () => {
-  const race = useCurrentRace();
-  const user = useCurrentUser();
+  const { race } = useLoadedRace();
+  const { user } = useLoadedUser();
   const { postStepLogs } = usePostStepLogs();
   const { stepsToday, totalSteps } = useStepCount();
-  const { racePlayers } = useRacePlayers();
+  const { racePlayers } = useRacePlayersSuspense();
   const currentPosition =
     racePlayers.findIndex((player) => player.id === user.id) + 1;
 

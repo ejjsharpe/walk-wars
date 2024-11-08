@@ -1,6 +1,7 @@
 import { useLobbyPlayersSuspense } from '@/api/race/useLobbyPlayers';
 import { useRace } from '@/api/race/useRace';
 import { useStartRace } from '@/api/race/useStartRace';
+import { useLoadedUser } from '@/api/user/useUser';
 import { PlayerLobbyCard } from '@/components/PlayerLobbyCard';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { Input } from '@/components/ui/Input';
@@ -8,7 +9,6 @@ import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import * as Colors from '@/constants/Colors';
-import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { AuthenticatedStackParamList } from '@/navigation/AuthenticatedStack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Suspense, useEffect, useState } from 'react';
@@ -16,7 +16,7 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 export const LobbyScreen = () => {
   const [userToInvite, setUserToInvite] = useState('');
-  const user = useCurrentUser();
+  const { user } = useLoadedUser();
   const route = useRoute<RouteProp<AuthenticatedStackParamList, 'Lobby'>>();
   const { raceId, raceName } = route.params;
   const { race } = useRace({ raceId });

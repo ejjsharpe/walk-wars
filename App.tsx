@@ -9,7 +9,7 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 const AppEntry = () => {
-  const { isAuthLoading } = useSession();
+  const { isAuthPending: isAuthLoading } = useSession();
 
   if (isAuthLoading) return null;
 

@@ -1,5 +1,5 @@
-import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { supabase } from '@/lib/supabase';
+import { useCurrentRace } from '@/stores/currentRaceStore';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
@@ -8,6 +8,7 @@ const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
     total_step_count,
     adjusted_step_count,
     finish_position,
+    is_finished,
     users ( display_name, avatar, color, id )
     `
   );
@@ -23,6 +24,7 @@ const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
         finish_position: user.finish_position,
         total_step_count: user.total_step_count,
         adjusted_step_count: user.adjusted_step_count,
+        is_finished: user.is_finished,
         ...userData,
       };
     })
@@ -33,11 +35,12 @@ const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
   return formattedData;
 };
 
-export const useRacePlayers = () => {
-  const { id } = useCurrentRace();
+export const useRacePlayersSuspense = () => {
+  const { raceId } = useCurrentRace();
+
   const { data: racePlayers } = useSuspenseQuery({
     queryKey: ['racePlayers'],
-    queryFn: () => fetchRacePlayers({ raceId: id }),
+    queryFn: () => fetchRacePlayers({ raceId }),
   });
 
   return { racePlayers };

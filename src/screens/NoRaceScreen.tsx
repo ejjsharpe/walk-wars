@@ -1,13 +1,13 @@
+import { useLoadedUser } from '@/api/user/useUser';
 import { PrimaryButton } from '@/components/ui/buttons/PrimaryButton';
 import { VSpace } from '@/components/ui/Spacer';
 import { Heading, Text } from '@/components/ui/Text';
 import * as Colors from '@/constants/Colors';
-import { useCurrentUser } from '@/contexts/CurrentUserContext';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 
 export const NoRaceScreen = () => {
-  const user = useCurrentUser();
+  const { user } = useLoadedUser();
   const { navigate } = useNavigation();
 
   const onPressCreateRace = () => {

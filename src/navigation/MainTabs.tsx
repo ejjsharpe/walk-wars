@@ -2,8 +2,8 @@ import { useRace } from '@/api/race/useRace';
 import { LeaderboardIconSvg } from '@/components/svg/LeaderboardIconSvg';
 import { ProfileIconSvg } from '@/components/svg/ProfileIconSvg';
 import { RunnerManSvg } from '@/components/svg/RunnerIconSvg';
+import { Heading } from '@/components/ui/Text';
 import * as Colors from '@/constants/Colors';
-import { CurrentRaceProvider } from '@/contexts/CurrentRaceContext';
 import { ProfileScreen } from '@/screens/ProfileScreen';
 import { HomeScreen } from '@/screens/tabs/HomeScreen';
 import { LeaderboardScreen } from '@/screens/tabs/LeaderboardScreen';
@@ -25,7 +25,7 @@ export const MainTabs = () => {
   const route = useRoute<RouteProp<AuthenticatedStackParamList, 'Main Tabs'>>();
   const { raceId } = route.params;
   const { reset } = useNavigation();
-  const { race } = useRace({ raceId });
+  const { race, isRacePending, isRaceError } = useRace({ raceId });
 
   useEffect(() => {
     if (
@@ -39,53 +39,59 @@ export const MainTabs = () => {
     }
   }, [race, reset]);
 
+  if (isRacePending) {
+    return <Heading>Loading...</Heading>;
+  }
+
+  if (isRaceError) {
+    return <Heading>Error</Heading>;
+  }
+
   return (
-    <CurrentRaceProvider raceId={raceId}>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: { paddingTop: 8, paddingBottom: 8 },
-          tabBarShowLabel: false,
-          animation: 'fade',
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: { paddingTop: 8, paddingBottom: 8 },
+        tabBarShowLabel: false,
+        animation: 'fade',
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <RunnerManSvg
+              color={focused ? Colors.pictonBlue : Colors.paynesGrey}
+              width={36}
+              height={36}
+            />
+          ),
         }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <RunnerManSvg
-                color={focused ? Colors.pictonBlue : Colors.paynesGrey}
-                width={36}
-                height={36}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Leaderboard"
-          component={LeaderboardScreen}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <LeaderboardIconSvg
-                color={focused ? Colors.pictonBlue : Colors.paynesGrey}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          initialParams={{ isTab: true }}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <ProfileIconSvg
-                color={focused ? Colors.pictonBlue : Colors.paynesGrey}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </CurrentRaceProvider>
+      />
+      <Tab.Screen
+        name="Leaderboard"
+        component={LeaderboardScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <LeaderboardIconSvg
+              color={focused ? Colors.pictonBlue : Colors.paynesGrey}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        initialParams={{ isTab: true }}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <ProfileIconSvg
+              color={focused ? Colors.pictonBlue : Colors.paynesGrey}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };

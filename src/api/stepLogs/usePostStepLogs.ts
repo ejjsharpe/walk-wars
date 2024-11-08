@@ -1,11 +1,11 @@
-import { useCurrentRace } from '@/contexts/CurrentRaceContext';
 import { queryClient } from '@/lib/reactQuery';
 import { supabase } from '@/lib/supabase';
+import { useCurrentRace } from '@/stores/currentRaceStore';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { getHourlyStepLogs } from '../health/getHourlyStepLogs/getHourlyStepLogs';
-import { useRace } from '../race/useRace';
-import { useUser } from '../user/useUser';
+import { useLoadedRace, useRace } from '../race/useRace';
+import { useLoadedUser, useUser } from '../user/useUser';
 import { getStepLogs } from './useStepCount';
 
 export const generateAndUploadLogs = async ({
@@ -37,12 +37,9 @@ export const generateAndUploadLogs = async ({
 };
 
 export const usePostStepLogs = () => {
-  const { id } = useCurrentRace();
-  const { user } = useUser();
-  const { race } = useRace({ raceId: id });
+  const { user } = useLoadedUser();
+  const { race } = useLoadedRace();
 
-  if (!user) throw new Error('cannot post step logs with no user');
-  if (!race) throw new Error('cannot post step logs with no race');
   if (!race.start_timestamp) {
     throw new Error('cannot post logs for a race that has not started');
   }
