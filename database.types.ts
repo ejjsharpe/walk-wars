@@ -264,6 +264,7 @@ export type Database = {
         Row: {
           adjusted_step_count: number
           finish_position: number | null
+          has_exited: boolean
           id: string
           is_finished: boolean
           joined_race_at: string
@@ -275,6 +276,7 @@ export type Database = {
         Insert: {
           adjusted_step_count?: number
           finish_position?: number | null
+          has_exited?: boolean
           id?: string
           is_finished?: boolean
           joined_race_at?: string
@@ -286,6 +288,7 @@ export type Database = {
         Update: {
           adjusted_step_count?: number
           finish_position?: number | null
+          has_exited?: boolean
           id?: string
           is_finished?: boolean
           joined_race_at?: string
@@ -323,6 +326,7 @@ export type Database = {
         Returns: {
           adjusted_step_count: number
           finish_position: number | null
+          has_exited: boolean
           id: string
           is_finished: boolean
           joined_race_at: string

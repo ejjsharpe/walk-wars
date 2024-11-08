@@ -6,7 +6,8 @@ const fetchUsersRaceDetails = async ({ userId }: { userId: string }) => {
   const { data: userRaces, error: userRacesError } = await supabase
     .from('users_races')
     .select('*')
-    .eq('user_id', userId);
+    .eq('user_id', userId)
+    .order('joined_race_at');
 
   if (userRacesError) throw userRacesError;
   if (!userRaces || userRaces.length < 1) return null;

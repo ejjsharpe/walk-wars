@@ -15,18 +15,18 @@ PODS:
   - EXJSONUtils (0.13.1)
   - EXManifests (0.14.3):
     - ExpoModulesCore
-  - Expo (51.0.38):
+  - Expo (51.0.32):
     - ExpoModulesCore
-  - expo-dev-client (4.0.29):
+  - expo-dev-client (4.0.26):
     - EXManifests
     - expo-dev-launcher
     - expo-dev-menu
     - expo-dev-menu-interface
     - EXUpdatesInterface
-  - expo-dev-launcher (4.0.29):
+  - expo-dev-launcher (4.0.27):
     - DoubleConversion
     - EXManifests
-    - expo-dev-launcher/Main (= 4.0.29)
+    - expo-dev-launcher/Main (= 4.0.27)
     - expo-dev-menu
     - expo-dev-menu-interface
     - ExpoModulesCore
@@ -52,7 +52,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-launcher/Main (4.0.29):
+  - expo-dev-launcher/Main (4.0.27):
     - DoubleConversion
     - EXManifests
     - expo-dev-launcher/Unsafe
@@ -81,7 +81,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-launcher/Unsafe (4.0.29):
+  - expo-dev-launcher/Unsafe (4.0.27):
     - DoubleConversion
     - EXManifests
     - expo-dev-menu
@@ -109,10 +109,10 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu (5.0.23):
+  - expo-dev-menu (5.0.21):
     - DoubleConversion
-    - expo-dev-menu/Main (= 5.0.23)
-    - expo-dev-menu/ReactNativeCompatibles (= 5.0.23)
+    - expo-dev-menu/Main (= 5.0.21)
+    - expo-dev-menu/ReactNativeCompatibles (= 5.0.21)
     - glog
     - hermes-engine
     - RCT-Folly (= 2024.01.01.00)
@@ -132,8 +132,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu-interface (1.8.4)
-  - expo-dev-menu/Main (5.0.23):
+  - expo-dev-menu-interface (1.8.3)
+  - expo-dev-menu/Main (5.0.21):
     - DoubleConversion
     - EXManifests
     - expo-dev-menu-interface
@@ -159,7 +159,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu/ReactNativeCompatibles (5.0.23):
+  - expo-dev-menu/ReactNativeCompatibles (5.0.21):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -180,7 +180,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu/SafeAreaView (5.0.23):
+  - expo-dev-menu/SafeAreaView (5.0.21):
     - DoubleConversion
     - ExpoModulesCore
     - glog
@@ -202,7 +202,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - expo-dev-menu/Vendored (5.0.23):
+  - expo-dev-menu/Vendored (5.0.21):
     - DoubleConversion
     - expo-dev-menu/SafeAreaView
     - glog
@@ -234,7 +234,7 @@ PODS:
     - ExpoModulesCore
   - ExpoFont (12.0.10):
     - ExpoModulesCore
-  - ExpoImage (1.13.0):
+  - ExpoImage (1.12.15):
     - ExpoModulesCore
     - libavif/libdav1d
     - SDWebImage (~> 5.19.1)
@@ -245,7 +245,7 @@ PODS:
     - ExpoModulesCore
   - ExpoKeepAwake (13.0.2):
     - ExpoModulesCore
-  - ExpoModulesCore (1.12.26):
+  - ExpoModulesCore (1.12.24):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -268,7 +268,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - EXSplashScreen (0.27.6):
+  - EXSplashScreen (0.27.5):
     - DoubleConversion
     - ExpoModulesCore
     - glog
@@ -325,6 +325,29 @@ PODS:
   - libwebp/sharpyuv (1.3.2)
   - libwebp/webp (1.3.2):
     - libwebp/sharpyuv
+  - lottie-ios (4.4.3)
+  - lottie-react-native (6.7.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - lottie-ios (~> 4.4.1)
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1593,7 +1616,73 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNReanimated (3.10.1):
+  - RNReanimated (3.16.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated (= 3.16.1)
+    - RNReanimated/worklets (= 3.16.1)
+    - Yoga
+  - RNReanimated/reanimated (3.16.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated/apple (= 3.16.1)
+    - Yoga
+  - RNReanimated/reanimated/apple (3.16.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNReanimated/worklets (3.16.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1743,6 +1832,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - "kingstinct-react-native-healthkit (from `../node_modules/@kingstinct/react-native-healthkit`)"
+  - lottie-react-native (from `../node_modules/lottie-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1810,6 +1900,7 @@ SPEC REPOS:
     - libavif
     - libdav1d
     - libwebp
+    - lottie-ios
     - SDWebImage
     - SDWebImageAVIFCoder
     - SDWebImageSVGCoder
@@ -1870,6 +1961,8 @@ EXTERNAL SOURCES:
     :tag: hermes-2024-06-28-RNv0.74.3-7bda0c267e76d11b68a585f84cfdd65000babf85
   kingstinct-react-native-healthkit:
     :path: "../node_modules/@kingstinct/react-native-healthkit"
+  lottie-react-native:
+    :path: "../node_modules/lottie-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -1989,20 +2082,20 @@ SPEC CHECKSUMS:
   EXImageLoader: ab589d67d6c5f2c33572afea9917304418566334
   EXJSONUtils: 30c17fd9cc364d722c0946a550dfbf1be92ef6a4
   EXManifests: c1fab4c3237675e7b0299ea8df0bcb14baca4f42
-  Expo: 9b6666ef2fedcfc89c5b9be2aa1ce12b81f9e7f5
-  expo-dev-client: 0cec8ec81fd01c10d9afcd9f6de3768b10644aee
-  expo-dev-launcher: 6388f2543586ca65e0a3ba64444fe39ded1597eb
-  expo-dev-menu: 00d0721b966fe2b30ffa0cc2c6df6c2a9c76ac6d
-  expo-dev-menu-interface: 5764ad537419c1a5e8f66f668e29c81e8aca290c
+  Expo: 33132a667698a3259a4e6c0af1b4936388e5fa33
+  expo-dev-client: 4f9100af6be210a360aa67f42649881251aa362a
+  expo-dev-launcher: 955f6edd371f605b0f552d0c5ba2e99cd566c144
+  expo-dev-menu: 5df85b9039c401d4f8ab990c721ab67d6453b87b
+  expo-dev-menu-interface: be32c09f1e03833050f0ee290dcc86b3ad0e73e4
   ExpoAdapterGoogleSignIn: 20e6be8bff6e951607ace66e6d3d11b30f2e9e3a
   ExpoAsset: 323700f291684f110fb55f0d4022a3362ea9f875
   ExpoFileSystem: 80bfe850b1f9922c16905822ecbf97acd711dc51
   ExpoFont: 00756e6c796d8f7ee8d211e29c8b619e75cbf238
-  ExpoImage: 42162e3d264ce07a62766d6bd26bd299fe4c6faa
+  ExpoImage: f77df382153d716f332f974438a803c4527f60b0
   ExpoImagePicker: 12a420923383ae38dccb069847218f27a3b87816
   ExpoKeepAwake: 3b8815d9dd1d419ee474df004021c69fdd316d08
-  ExpoModulesCore: b86c114a7ba4a083dbe06c916e4e015783c07ec1
-  EXSplashScreen: 10b116117c9bb6a272ba782706f21dadc23f44d9
+  ExpoModulesCore: a113755f96c40590671f01cfcdce8ebdf0cf5f83
+  EXSplashScreen: a7e8d13c476f9937e39d654af4235758b567a1be
   EXUpdatesInterface: 996527fd7d1a5d271eb523258d603f8f92038f24
   FBLazyVector: ac12dc084d1c8ec4cc4d7b3cf1b0ebda6dab85af
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
@@ -2015,6 +2108,8 @@ SPEC CHECKSUMS:
   libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libdav1d: 23581a4d8ec811ff171ed5e2e05cd27bad64c39f
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
+  lottie-ios: fcb5e73e17ba4c983140b7d21095c834b3087418
+  lottie-react-native: a7c09f70378a71bc045909cbea5b346f38c981c3
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
   RCTDeprecation: 3afceddffa65aee666dafd6f0116f1d975db1584
   RCTRequired: ec1239bc9d8bf63e10fb92bd8b26171a9258e0c1
@@ -2066,7 +2161,7 @@ SPEC CHECKSUMS:
   ReactCommon: f7da14a8827b72704169a48c929bcde802698361
   RNFlashList: b521ebdd7f9352673817f1d98e8bdc0c8cf8545b
   RNGoogleSignin: d09ec488b26cc4aa0dc5bc2544819ba186c08daa
-  RNReanimated: 58a768c2c17a5589ef732fa6bd8d7ed0eb6df1c1
+  RNReanimated: 9e3870d25b7f8c7b79bf0b1cadc98da6470bfcec
   RNScreens: 63fe8222c172a79f5c30dd1aefaeb369c6eb57b6
   RNSVG: 02051bffb0b2fb2166e85009a58211643434ff63
   SDWebImage: 8a6b7b160b4d710e2a22b6900e25301075c34cb3

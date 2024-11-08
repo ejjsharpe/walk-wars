@@ -34,7 +34,7 @@ export function Button({
             sv.value,
             [0.98, 1],
             [
-              pressedBackgroundColor || '#38B3E0B3',
+              pressedBackgroundColor || '#297DAD',
               backgroundColor || Colors.pictonBlue,
             ]
           ),
@@ -76,6 +76,6 @@ const styles = StyleSheet.create({
     height: 54,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: 12,
   },
 });

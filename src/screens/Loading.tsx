@@ -21,7 +21,7 @@ export const Loading = () => {
       return;
     }
 
-    if (!userRaceDetails) {
+    if (!userRaceDetails || userRaceDetails.has_exited) {
       reset({ routes: [{ name: 'No Race' }] });
       return;
     }
