@@ -7,7 +7,7 @@ const fetchUsersRaceDetails = async ({ userId }: { userId: string }) => {
     .from('users_races')
     .select('*')
     .eq('user_id', userId)
-    .order('joined_race_at');
+    .order('joined_race_at', { ascending: false });
 
   if (userRacesError) throw userRacesError;
   if (!userRaces || userRaces.length < 1) return null;

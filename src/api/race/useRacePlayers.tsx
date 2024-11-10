@@ -3,8 +3,10 @@ import { useCurrentRace } from '@/stores/currentRaceStore';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
-  const { data, error } = await supabase.from('users_races').select(
-    `finish_position, 
+  const { data, error } = await supabase
+    .from('users_races')
+    .select(
+      `finish_position, 
     total_step_count,
     adjusted_step_count,
     finish_position,
@@ -12,7 +14,8 @@ const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
     last_logged_steps_at,
     users ( display_name, avatar, color, id )
     `
-  );
+    )
+    .eq('race_id', raceId);
 
   if (error) throw error;
 
