@@ -268,6 +268,7 @@ export type Database = {
           id: string
           is_finished: boolean
           joined_race_at: string
+          last_logged_steps_at: string | null
           race_id: string
           total_step_count: number
           updated_at: string
@@ -280,6 +281,7 @@ export type Database = {
           id?: string
           is_finished?: boolean
           joined_race_at?: string
+          last_logged_steps_at?: string | null
           race_id: string
           total_step_count?: number
           updated_at?: string
@@ -292,6 +294,7 @@ export type Database = {
           id?: string
           is_finished?: boolean
           joined_race_at?: string
+          last_logged_steps_at?: string | null
           race_id?: string
           total_step_count?: number
           updated_at?: string
@@ -330,6 +333,7 @@ export type Database = {
           id: string
           is_finished: boolean
           joined_race_at: string
+          last_logged_steps_at: string | null
           race_id: string
           total_step_count: number
           updated_at: string
@@ -388,6 +392,7 @@ export type Database = {
       start_race: {
         Args: {
           race_id: string
+          start_time: string
         }
         Returns: undefined
       }

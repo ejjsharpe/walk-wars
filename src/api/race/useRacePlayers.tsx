@@ -9,6 +9,7 @@ const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
     adjusted_step_count,
     finish_position,
     is_finished,
+    last_logged_steps_at,
     users ( display_name, avatar, color, id )
     `
   );
@@ -25,6 +26,7 @@ const fetchRacePlayers = async ({ raceId }: { raceId: string }) => {
         total_step_count: user.total_step_count,
         adjusted_step_count: user.adjusted_step_count,
         is_finished: user.is_finished,
+        last_logged_steps_at: user.last_logged_steps_at,
         ...userData,
       };
     })

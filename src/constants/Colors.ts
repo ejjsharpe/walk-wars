@@ -11,6 +11,12 @@ export const celestialBlue = '#00A3FF';
 export const transparent = 'transparent';
 export const paynesGrey = '#525E6A';
 
+export const primaryButton = pictonBlue;
+export const primaryButtonPressed = '#297DAD';
+
+export const backButton = pumpkinOrange;
+export const backButtonPressed = pumpkinOrangeDark;
+
 export const DefaultTheme: Theme = {
   ..._DefaultTheme,
   dark: true,

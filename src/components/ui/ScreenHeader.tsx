@@ -20,7 +20,7 @@ export const ScreenHeader = ({
         !showBackButton && { justifyContent: 'center' },
       ]}
     >
-      {showBackButton && <BackButton />}
+      {showBackButton && <BackButton style={{ width: 40, height: 40 }} />}
       <Heading style={styles.screenTitle}>{children}</Heading>
       {showBackButton && <View style={styles.headerRight} />}
     </View>
@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     width: '100%',
   },
-  screenTitle: { fontSize: 40, lineHeight: 40 },
+  screenTitle: { fontSize: 32, lineHeight: 40 },
   headerRight: {
-    height: 48,
-    width: 48,
+    height: 40,
+    width: 40,
   },
 });

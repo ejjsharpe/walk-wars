@@ -15,9 +15,25 @@ const fetchUsersRaceDetails = async ({ userId }: { userId: string }) => {
   return userRaces[0];
 };
 
-export const useUserRaceDetails = () => {
-  const { user } = useLoadedUser();
+export const useUserRaceDetails = ({
+  userId,
+}: {
+  userId: string | undefined;
+}) => {
+  const { data: userRaceDetails, isPending: isUserRaceDetailsPending } =
+    useQuery({
+      queryKey: ['userRaceDetails'],
+      queryFn: () => fetchUsersRaceDetails({ userId: userId as string }),
+      staleTime: Infinity,
+      gcTime: Infinity,
+      enabled: !!userId,
+    });
 
+  return { userRaceDetails, isUserRaceDetailsPending };
+};
+
+export const useUserRaceDetailsSuspense = () => {
+  const { user } = useLoadedUser();
   const { data: userRaceDetails, isPending: isUserRaceDetailsPending } =
     useQuery({
       queryKey: ['userRaceDetails'],

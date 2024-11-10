@@ -8,15 +8,20 @@ import { Heading } from '@/components/ui/Text';
 import { queryClient } from '@/lib/reactQuery';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
 export const CreateRaceScreen = () => {
-  const [raceName, setRaceName] = useState('');
-  const [durationDays, setDurationDays] = useState(100000);
+  const [warName, setWarName] = useState('');
+  const [durationDays, setDurationDays] = useState(7);
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const { createRace } = useCreateRace();
@@ -24,7 +29,7 @@ export const CreateRaceScreen = () => {
 
   const onPressContinue = () => {
     createRace(
-      { name: raceName, durationDays },
+      { name: warName, durationDays },
       {
         onSuccess: async (race) => {
           await queryClient.setQueryData(['race'], race);
@@ -40,14 +45,14 @@ export const CreateRaceScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <ScreenHeader>CREATE RACE</ScreenHeader>
+      <ScreenHeader>CREATE WALK WAR</ScreenHeader>
       <VSpace height={32} />
-      <View style={styles.container}>
-        <Heading style={{ marginLeft: 4 }}>RACE NAME</Heading>
+      <ScrollView style={styles.container}>
+        <Heading style={{ marginLeft: 4 }}>War name</Heading>
         <VSpace height={12} />
-        <Input onChangeText={setRaceName} value={raceName} />
+        <Input onChangeText={setWarName} value={warName} autoFocus />
         <VSpace height={32} />
-        <Heading style={{ marginLeft: 4 }}>steps_to_finish (KM)</Heading>
+        <Heading style={{ marginLeft: 4 }}>Length</Heading>
         <VSpace height={12} />
         <View style={styles.starButtonsContainer}>
           <SquareStarButton
@@ -56,7 +61,7 @@ export const CreateRaceScreen = () => {
             onPress={() => {
               setDurationDays(7);
             }}
-            text="1 week"
+            text="7 days"
           />
           <View style={{ width: 20 }} />
           <SquareStarButton
@@ -66,7 +71,7 @@ export const CreateRaceScreen = () => {
             onPress={() => {
               setDurationDays(30);
             }}
-            text="1 month"
+            text="30 days"
           />
           <View style={{ width: 20 }} />
           <SquareStarButton
@@ -76,15 +81,13 @@ export const CreateRaceScreen = () => {
             onPress={() => {
               setDurationDays(90);
             }}
-            text="3 months"
+            text="90 days"
           />
         </View>
         <VSpace height={32} />
-        <Heading style={{ marginLeft: 4 }}>ENDS WHEN</Heading>
-        <VSpace height={12} />
-      </View>
+      </ScrollView>
       <View style={[styles.stickyButtonContainer, { bottom: insets.bottom }]}>
-        <PrimaryButton disabled={!raceName} onPress={onPressContinue}>
+        <PrimaryButton disabled={!warName} onPress={onPressContinue}>
           Continue
         </PrimaryButton>
       </View>

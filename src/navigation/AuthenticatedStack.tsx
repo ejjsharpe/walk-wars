@@ -55,7 +55,11 @@ export const AuthenticatedStack = () => {
       <Stack.Screen name="Create Race" component={CreateRaceScreen} />
       <Stack.Screen name="Invitations" component={InvitationsScreen} />
       <Stack.Screen name="Lobby" component={LobbyScreen} />
-      <Stack.Screen name="Race Complete" component={RaceCompleteScreen} />
+      <Stack.Screen
+        name="Race Complete"
+        component={RaceCompleteScreen}
+        options={{ animation: 'fade' }}
+      />
       <Stack.Screen name="Results" component={ResultsScreen} />
     </Stack.Navigator>
   );

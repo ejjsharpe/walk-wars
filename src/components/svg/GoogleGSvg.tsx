@@ -3,7 +3,6 @@ import Svg, { Path, SvgProps } from 'react-native-svg';
 
 export const GoogleGSvg = (props: SvgProps): JSX.Element => (
   <Svg width={24} height={24} fill="none" {...props}>
-    <Path fill="#fff" d="M0 0h24v24H0z" />
     <Path
       fill="#4285F4"
       fillRule="evenodd"

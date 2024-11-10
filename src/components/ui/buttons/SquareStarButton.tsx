@@ -21,7 +21,7 @@ export const SquareStarButton = ({
   const sizes = {
     1: size / 2.173611111111111,
     2: size / 2.5,
-    3: size / 3.3,
+    3: size / 3.8,
   };
   return (
     <Pressable
@@ -66,7 +66,7 @@ export const SquareStarButton = ({
       <Text
         style={{
           color: isSelected ? Colors.white : Colors.paynesGrey,
-          marginTop: 2,
+          marginTop: 8,
         }}
       >
         {text}
@@ -78,7 +78,7 @@ export const SquareStarButton = ({
 const styles = StyleSheet.create({
   container: {
     borderWidth: 2,
-    borderRadius: 8,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -3,12 +3,15 @@ import { useUserRaceDetails } from '@/api/race/useUserRaceDetails';
 import { useUser } from '@/api/user/useUser';
 import { Heading } from '@/components/ui/Text';
 import { useNavigation } from '@react-navigation/native';
+
 import { useEffect } from 'react';
 import { View } from 'react-native';
 
 export const Loading = () => {
   const { user, isUserPending } = useUser();
-  const { userRaceDetails, isUserRaceDetailsPending } = useUserRaceDetails();
+  const { userRaceDetails, isUserRaceDetailsPending } = useUserRaceDetails({
+    userId: user?.id,
+  });
   const { race, isRacePending } = useRace({ raceId: userRaceDetails?.race_id });
   const { reset } = useNavigation();
 

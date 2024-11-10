@@ -1,3 +1,4 @@
+import { getTimePassed } from '@/utils/getTimePassed';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
 import { HSpace, VSpace } from './ui/Spacer';
@@ -8,6 +9,7 @@ interface LeaderboardCardProps {
   position: number;
   avatarUrl: string;
   numberOfSteps: number;
+  lastLoggedStepsAt: Date | null;
 }
 
 export function LeaderboardCard({
@@ -15,8 +17,12 @@ export function LeaderboardCard({
   position,
   numberOfSteps,
   avatarUrl,
+  lastLoggedStepsAt,
 }: LeaderboardCardProps) {
   const stepsText = `${numberOfSteps} \n steps`;
+  const timeSinceLastLog = lastLoggedStepsAt
+    ? getTimePassed(lastLoggedStepsAt)
+    : null;
   return (
     <View style={styles.container}>
       <Heading style={styles.position}>{position}</Heading>
@@ -34,6 +40,7 @@ export function LeaderboardCard({
       >
         <Heading style={{ height: '50%', flexGrow: 1 }}>{username}</Heading>
         <VSpace height={8} />
+        {!!timeSinceLastLog && <Text>{timeSinceLastLog}</Text>}
       </View>
       <Text style={{ textAlign: 'center', fontSize: 16 }}>{stepsText}</Text>
     </View>
